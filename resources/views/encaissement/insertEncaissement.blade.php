@@ -141,6 +141,27 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function () {
+    // Rendre les champs Virement et Chèque mutuellement exclusifs
+    $('#id_banque').on('change', function () {
+        if ($(this).val() !== '') {
+            // Si un virement est sélectionné, désactiver et réinitialiser le champ chèque
+            $('#id_cheque').val('').prop('disabled', true);
+        } else {
+            // Si aucun virement, réactiver le champ chèque
+            $('#id_cheque').prop('disabled', false);
+        }
+    });
+
+    $('#id_cheque').on('change', function () {
+        if ($(this).val() !== '') {
+            // Si un chèque est sélectionné, désactiver et réinitialiser le champ virement
+            $('#id_banque').val('').prop('disabled', true);
+        } else {
+            // Si aucun chèque, réactiver le champ virement
+            $('#id_banque').prop('disabled', false);
+        }
+    });
+
     $('#id_mode_encaissement').on('change', function () {
         var typeId = $(this).val(); // Récupère la valeur sélectionnée du mode d'encaissement
         if (typeId) {
@@ -151,7 +172,7 @@ $(document).ready(function () {
                 success: function (data) {
                     // Réinitialiser les options du select cheque_banque
                     $('#id_cheque_banque').empty();
-                    
+
                     // Si des données sont reçues, les ajouter au select
                     $.each(data, function (key, value) {
                         $('#id_cheque_banque').append('<option value="' + key + '">' + value + '</option>');

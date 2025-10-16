@@ -64,21 +64,29 @@ class EncaissementController extends Controller
     if ($request->has('reste_a_payer')) {
         // Nettoyer la valeur (enlever les virgules, espaces et autres caractères non numériques)
         $reste_a_payer = preg_replace('/[^0-9.]/', '', $request->input('reste_a_payer'));
-        
+
         // S'assurer que la valeur est un nombre valide
         $request->merge([
             'reste_a_payer' => (float)$reste_a_payer
         ]);
     }
-        
+
+    // Convertir les chaînes vides en null pour id_banque et id_cheque
+    $request->merge([
+        'id_banque' => $request->input('id_banque') === '' ? null : $request->input('id_banque'),
+        'id_cheque' => $request->input('id_cheque') === '' ? null : $request->input('id_cheque'),
+    ]);
+
         $request->validate([
             'id_tranche_facture' => 'required|exists:tranche_facture,id_tranche_facture',
-          
             'datereel_encaissement' => 'nullable|date',
-            'id_banque' => 'nullable|exists:banque,id_banque',
-            'id_cheque' => 'nullable|exists:cheque,id_cheque',
+            'id_banque' => 'required_without:id_cheque|nullable|exists:banques,id_banque',
+            'id_cheque' => 'required_without:id_banque|nullable|exists:cheque,id_cheque',
             'montant_a_encaisse' => 'nullable|numeric|min:0',
             'reste_a_payer' => 'nullable|numeric|min:0',
+        ], [
+            'id_banque.required_without' => 'Vous devez sélectionner soit un virement, soit un chèque.',
+            'id_cheque.required_without' => 'Vous devez sélectionner soit un virement, soit un chèque.',
         ]);
 
 

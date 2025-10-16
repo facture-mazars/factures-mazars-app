@@ -105,11 +105,11 @@
 
 
 
-   
+
     <style>
     .alert-success {
         padding: 15px;
- 
+
         border: 1px solid transparent;
         border-radius: 4px;
         color: #155724;
@@ -118,6 +118,56 @@
         margin-top: 20px;
     }
 </style>
+
+<!-- Script pour avertir avant de quitter le processus de création -->
+<script>
+    // Détecter si on est sur une page du processus de création
+    const urlPath = window.location.pathname;
+    const isCreationProcess = urlPath.includes('/chantier/create') ||
+                             urlPath.includes('/getdate/') ||
+                             urlPath.includes('/equipe/create') ||
+                             urlPath.includes('/budget/create') ||
+                             urlPath.includes('/facture/create') ||
+                             urlPath.includes('/tranche/create') ||
+                             urlPath.includes('/choix/create');
+
+    // Si on est dans le processus, avertir avant de quitter
+    if (isCreationProcess) {
+        let formSubmitted = false;
+        let isPrecedentClick = false;
+
+        // Marquer quand un formulaire est soumis
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function() {
+                formSubmitted = true;
+            });
+        });
+
+        // Marquer quand on clique sur le bouton Précédent
+        document.addEventListener('click', function(e) {
+            // Vérifier si le clic est sur un lien/bouton "Précédent"
+            const target = e.target.closest('a, button');
+            if (target) {
+                const text = target.textContent.toLowerCase();
+                if (text.includes('précédent') || text.includes('precedent')) {
+                    isPrecedentClick = true;
+                }
+            }
+        });
+
+        // Avertir avant de quitter la page
+        window.addEventListener('beforeunload', function (e) {
+            // Ne pas afficher l'avertissement si :
+            // - le formulaire a été soumis (navigation normale)
+            // - l'utilisateur a cliqué sur Précédent
+            if (!formSubmitted && !isPrecedentClick) {
+                e.preventDefault();
+                e.returnValue = ''; // Chrome nécessite returnValue
+                return 'Vous avez un processus de création en cours. Si vous quittez maintenant, vous devrez recommencer depuis le début. Êtes-vous sûr de vouloir quitter ?';
+            }
+        });
+    }
+</script>
 
   </body>
 </html>

@@ -187,6 +187,13 @@ class TrancheFactureController extends Controller
 
 
     }
+
+        // Mettre à jour l'étape du chantier
+        $facture = \App\Models\Facture::find($idFacture);
+        if ($facture && $facture->chantier) {
+            $facture->chantier->updateEtape('banque');
+        }
+
         // Rediriger l'utilisateur avec un message de succès
         return redirect()->route('choix.create', ['id_facture' => $idFacture])
                          ->with('success', 'Les tranches de la facture ont été ajoutées avec succès.');
@@ -260,7 +267,7 @@ class TrancheFactureController extends Controller
 
 
 
-    return view('Tranche_facture.listeTrancheFacture', compact(
+    return view('tranche_facture.listeTrancheFacture', compact(
         'trancheFacture',
         'totals',
         'totalAvecTaxeDebours',
@@ -526,7 +533,7 @@ $equipeGrade1 = Equipe::where('id_chantier', $id_chantier)
 
 
 
-        return view('Tranche_facture.voirTrancheFacture', compact(
+        return view('tranche_facture.voirTrancheFacture', compact(
     'trancheFacture',
             'totals',
             'societes',
@@ -744,7 +751,7 @@ $equipeGrade1 = Equipe::where('id_chantier', $id_chantier)
  ->get();
 
 
-        return view('Tranche_facture.detailsTrancheFacture', compact(
+        return view('tranche_facture.detailsTrancheFacture', compact(
             'trancheFacture', 
             'totals',
             'societes',
@@ -945,7 +952,7 @@ $banquesEtTranches = DB::table('choix_banque')
         ->orderBy('choix_banque.id_facture')
         ->get();
 
-        return view('Tranche_facture.detailsTrancheFactureSansEncaissement', compact(
+        return view('tranche_facture.detailsTrancheFactureSansEncaissement', compact(
             'trancheFacture', 
             'totals',
             'societes',
@@ -1024,7 +1031,7 @@ $banquesEtTranches = DB::table('choix_banque')
     // Calculer la somme des taux_honoraire
     $sommeTauxHonoraires = $tranchesActives->sum('taux_honoraire');
     
-        return view('Tranche_facture.modifierTrancheFacture', compact('facture', 'tranches', 'tauxOptions', 'totalHonoraire', 'totalDebours','encaisseTranches','totalHonoraireEncaisse', 'totalDeboursEncaisse','sommeTauxHonoraires'));
+        return view('tranche_facture.modifierTrancheFacture', compact('facture', 'tranches', 'tauxOptions', 'totalHonoraire', 'totalDebours','encaisseTranches','totalHonoraireEncaisse', 'totalDeboursEncaisse','sommeTauxHonoraires'));
     }
 
     public function update(Request $request)
@@ -1253,7 +1260,7 @@ public function showPrevisionSansFiltre()
   
 
     
-    return view('Tranche_facture.prevision', compact('trancheFacture'));
+    return view('tranche_facture.prevision', compact('trancheFacture'));
 }
 
 
@@ -1623,7 +1630,7 @@ foreach ($emises as $tranche) {
 }
 
 
-    return view('Tranche_facture.emises', compact('emises','totals'));
+    return view('tranche_facture.emises', compact('emises','totals'));
 }
 
 
@@ -1807,7 +1814,7 @@ $banquesEtTranches = DB::table('choix_banque')
         ->get();
 
 
-    return view('Tranche_facture.detailsTrancheFactureAnnuler', compact(
+    return view('tranche_facture.detailsTrancheFactureAnnuler', compact(
         'trancheFacture', 
         'totals',
         'societes',
@@ -1992,7 +1999,7 @@ $banquesEtTranches = DB::table('choix_banque')
         ->get();
 
 
-    return view('Tranche_facture.detailsTrancheFactureSansEncaissementAnnuler', compact(
+    return view('tranche_facture.detailsTrancheFactureSansEncaissementAnnuler', compact(
         'trancheFacture', 
         'totals',
         'societes',

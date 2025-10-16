@@ -13,10 +13,10 @@ class Cheques extends Model
 
     protected $fillable = [
         'nom',
-    
+
     ];
 
-    public $timestamps = true;
+    public $timestamps = false;
 
     protected $primaryKey = 'id_cheque'; // Nom de la clé primaire
 

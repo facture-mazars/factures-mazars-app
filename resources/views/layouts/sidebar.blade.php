@@ -125,7 +125,16 @@
             </a>
           </li>
 
-
+          <li class="nav-item">
+            <a href="{{ route('cheque.index') }}">
+              <span class="icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 4H4C2.89 4 2.01 4.89 2.01 6L2 18C2 19.11 2.89 20 4 20H20C21.11 20 22 19.11 22 18V6C22 4.89 21.11 4 20 4M20 18H4V12H20V18M20 8H4V6H20V8M15 15H18V17H15V15M11 15H14V17H11V15Z" />
+                </svg>
+              </span>
+              <span class="text">Chèque</span>
+            </a>
+          </li>
 
 
           <span class="divider"><hr /></span>

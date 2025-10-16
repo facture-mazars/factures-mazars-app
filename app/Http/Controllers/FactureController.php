@@ -87,6 +87,12 @@ class FactureController extends Controller
           // Attacher les budgets à la facture
           $facture->budgets()->attach($budgets->pluck('id_budget'));
 
+        // Mettre à jour l'étape du chantier
+        $chantier = \App\Models\Chantier::find($validated['id_chantier']);
+        if ($chantier) {
+            $chantier->updateEtape('tranche');
+        }
+
         return redirect()->route('tranche.create', ['id_facture' => $facture->id_facture])
                          ->with('success', 'Facture créée avec succès.');
     }

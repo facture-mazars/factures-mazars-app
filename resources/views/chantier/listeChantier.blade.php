@@ -82,6 +82,12 @@
 
                         <th class="min-width">
                         <h6 class="text-sm text-medium">
+                     Statut Création
+                          </h6>
+                        </th>
+
+                        <th class="min-width">
+                        <h6 class="text-sm text-medium">
                         <span style="color: transparent;">....</span>
                      Etat <span style="color: transparent;">.........</span>
                           </h6>
@@ -130,8 +136,47 @@
                           <span class="text-sm">{{ $row->fin_exercice ?? '-' }}</span>
                         </td>
 
-                      
-                     
+                        <td>
+                          <div class="statut-creation-container">
+                        @if ($row->statut_completion == 'complet')
+                          <span class="badge-statut badge-complet">Complet</span>
+                          @else
+                            <span class="badge-statut badge-encours">Étape: {{ ucfirst($row->etape_actuelle ?? 'chantier') }}</span>
+                            @php
+                              // Déterminer l'URL en fonction de l'étape actuelle
+                              $continueUrl = '#';
+                              switch($row->etape_actuelle) {
+                                case 'date':
+                                  $continueUrl = route('getdate.create', ['id_chantier' => $row->id_chantier]);
+                                  break;
+                                case 'equipe':
+                                  $continueUrl = route('equipe.create', ['id_chantier' => $row->id_chantier]);
+                                  break;
+                                case 'budget':
+                                  $continueUrl = route('budget.create', ['id_chantier' => $row->id_chantier]);
+                                  break;
+                                case 'facture':
+                                  $continueUrl = route('facture.create', ['id_chantier' => $row->id_chantier]);
+                                  break;
+                                case 'tranche':
+                                  $facture = $row->factures->first();
+                                  if ($facture) {
+                                    $continueUrl = route('tranche.create', ['id_facture' => $facture->id_facture]);
+                                  }
+                                  break;
+                                case 'banque':
+                                  $facture = $row->factures->first();
+                                  if ($facture) {
+                                    $continueUrl = route('choix.create', ['id_facture' => $facture->id_facture]);
+                                  }
+                                  break;
+                              }
+                            @endphp
+                            <a href="{{ $continueUrl }}" class="link-continuer">Continuer →</a>
+                        @endif
+                          </div>
+                        </td>
+
                         <td>
                         @if ($row->etat == 'false')
                           <span class="status-btn close-btn">Cloturé</span>
@@ -142,8 +187,7 @@
 
                         <td>
                           <div class="action text-sm">
-                        
-                            <a style="margin-left:20px;" href="{{ route('detailsChantiers', $row->id_chantier) }}" class="edit">
+                            <a href="{{ route('detailsChantiers', $row->id_chantier) }}" class="edit">
                               <i class="lni lni-circle-plus"></i>
                             </a>
                             </div>
@@ -185,6 +229,54 @@
           <!-- End Row -->
         </div>
         <!-- end container -->
+
+<style>
+/* Container pour aligner les éléments */
+.statut-creation-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-height: 50px;
+    justify-content: center;
+}
+
+/* Badge statut */
+.badge-statut {
+    display: inline-block;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 500;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+.badge-complet {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.badge-encours {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Lien Continuer */
+.link-continuer {
+    color: #4285f4;
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s ease;
+}
+
+.link-continuer:hover {
+    color: #1a73e8;
+    text-decoration: underline;
+}
+</style>
 
 <script src="{{ asset('assets/js/jquery.min.js')}}"></script>  
 <script>

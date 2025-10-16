@@ -103,8 +103,8 @@
                     <div class="col-xxl-1 col-custom">
                         <div class="input-style-1">
                           <label for="taux_honoraire_{{ $i }}">% Honoraire:</label>
-                          <input type="number" id="taux_honoraire_{{ $i }}" name="tranches[{{ $i }}][taux_honoraire]" required oninput="calculateTauxEtMontants({{ $i }})" value="0">
-                   
+                          <input type="number" id="taux_honoraire_{{ $i }}" name="tranches[{{ $i }}][taux_honoraire]" min="0" required oninput="calculateTauxEtMontants({{ $i }})" value="0">
+                          <small class="error-message" id="error_taux_honoraire_{{ $i }}" style="color: #dc3545; display: none;"></small>
                         </div>
                     </div>
 
@@ -119,7 +119,8 @@
                     <div class="col-xxl-1 col-custom">
                       <div class="input-style-1">
                       <label for="taux_debours_{{ $i }}">% Débours:</label>
-                      <input type="number" id="taux_debours_{{ $i }}" name="tranches[{{ $i }}][taux_debours]" required oninput="calculateTauxEtMontants({{ $i }})" value="0">
+                      <input type="number" id="taux_debours_{{ $i }}" name="tranches[{{ $i }}][taux_debours]" min="0" required oninput="calculateTauxEtMontants({{ $i }})" value="0">
+                      <small class="error-message" id="error_taux_debours_{{ $i }}" style="color: #dc3545; display: none;"></small>
                       </div>
                     </div>
 
@@ -127,6 +128,7 @@
                       <div class="input-style-1">
                       <label for="montant_debours_{{ $i }}">Montant Débours ({{ $facture->chantier->monnaie->nom_monnaie }}):</label>
                       <input type="number" id="montant_debours_{{ $i }}" name="tranches[{{ $i }}][montant_debours]" step="0.01" readonly>
+                      <small class="error-message" id="error_montant_debours_{{ $i }}" style="color: #dc3545; display: none;"></small>
                       </div>
                     </div>
 
@@ -187,30 +189,90 @@
 
 @endsection
 
+<style>
+.error-message {
+    display: block;
+    margin-top: 5px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+button[type="submit"]:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+</style>
 
 <script>
-            // Calcul du taux et des montants
+            // Calcul du taux et des montants avec validation
             function calculateTauxEtMontants(index) {
                 const totalTranches = {{ $facture->nb_tranche_facture }};
                 let totalTauxHonoraire = 0;
                 let totalTauxDebours = 0;
                 const totalHonoraire = @json($totalHonoraire);
                 const totalDebours = @json($totalDebours);
+                let hasError = false;
+
+                // Effacer tous les messages d'erreur
+                for (let i = 0; i < totalTranches; i++) {
+                    const errorTauxHonoraire = document.getElementById(`error_taux_honoraire_${i}`);
+                    const errorTauxDebours = document.getElementById(`error_taux_debours_${i}`);
+                    const errorMontantDebours = document.getElementById(`error_montant_debours_${i}`);
+                    if (errorTauxHonoraire) errorTauxHonoraire.style.display = 'none';
+                    if (errorTauxDebours) errorTauxDebours.style.display = 'none';
+                    if (errorMontantDebours) errorMontantDebours.style.display = 'none';
+                }
 
                 for (let i = 0; i < totalTranches; i++) {
                     if (i < totalTranches - 1) {
                         const tauxHonoraire = parseFloat(document.getElementById(`taux_honoraire_${i}`).value) || 0;
                         const tauxDebours = parseFloat(document.getElementById(`taux_debours_${i}`).value) || 0;
 
+                        // Validation du taux honoraire
+                        const errorTauxHonoraireElement = document.getElementById(`error_taux_honoraire_${i}`);
+                        if (errorTauxHonoraireElement) {
+                            if (tauxHonoraire < 0) {
+                                errorTauxHonoraireElement.textContent = 'Le taux honoraire doit être positif.';
+                                errorTauxHonoraireElement.style.display = 'block';
+                                hasError = true;
+                            } else if (tauxHonoraire > 100) {
+                                errorTauxHonoraireElement.textContent = 'Le taux honoraire ne doit pas dépasser 100%.';
+                                errorTauxHonoraireElement.style.display = 'block';
+                                hasError = true;
+                            }
+                        }
+
+                        // Validation du taux débours
+                        const errorTauxDebours = document.getElementById(`error_taux_debours_${i}`);
+                        if (errorTauxDebours) {
+                            if (tauxDebours < 0) {
+                                errorTauxDebours.textContent = 'Le taux debours doit être positif.';
+                                errorTauxDebours.style.display = 'block';
+                                hasError = true;
+                            } else if (tauxDebours > 100) {
+                                errorTauxDebours.textContent = 'Le taux debours ne doit pas dépasser 100%.';
+                                errorTauxDebours.style.display = 'block';
+                                hasError = true;
+                            }
+                        }
+
                         totalTauxHonoraire += tauxHonoraire;
                         totalTauxDebours += tauxDebours;
 
-                     
-
-
                         // Calculer les montants pour les tranches non finales
-                        document.getElementById(`montant_honoraire_${i}`).value = ((totalHonoraire * tauxHonoraire) / 100).toFixed(0);
-                        document.getElementById(`montant_debours_${i}`).value = ((totalDebours * tauxDebours) / 100).toFixed(0);
+                        const montantHonoraire = ((totalHonoraire * tauxHonoraire) / 100).toFixed(0);
+                        const montantDebours = ((totalDebours * tauxDebours) / 100).toFixed(0);
+
+                        document.getElementById(`montant_honoraire_${i}`).value = montantHonoraire;
+                        document.getElementById(`montant_debours_${i}`).value = montantDebours;
+
+                        // Validation du montant débours
+                        const errorMontantElement = document.getElementById(`error_montant_debours_${i}`);
+                        if (errorMontantElement && parseFloat(montantDebours) < 0) {
+                            errorMontantElement.textContent = 'Le montant debours doit être positif.';
+                            errorMontantElement.style.display = 'block';
+                            hasError = true;
+                        }
                     }
                 }
 
@@ -223,6 +285,38 @@
 
                 document.getElementById(`taux_debours_${totalTranches - 1}`).value = tauxDeboursFinal.toFixed(2);
                 document.getElementById(`montant_debours_${totalTranches - 1}`).value = ((totalDebours * tauxDeboursFinal) / 100).toFixed(0);
+
+                // Bloquer le bouton si erreur
+                const submitButton = document.querySelector('button[type="submit"]');
+                if (submitButton) {
+                    submitButton.disabled = hasError;
+                }
             }
-        
+
+            // Validation avant soumission du formulaire
+            document.addEventListener('DOMContentLoaded', function() {
+                const form = document.querySelector('form');
+                if (form) {
+                    form.addEventListener('submit', function(e) {
+                        const totalTranches = {{ $facture->nb_tranche_facture }};
+                        let hasError = false;
+
+                        for (let i = 0; i < totalTranches; i++) {
+                            const tauxHonoraire = parseFloat(document.getElementById(`taux_honoraire_${i}`).value) || 0;
+                            const tauxDebours = parseFloat(document.getElementById(`taux_debours_${i}`).value) || 0;
+                            const montantDebours = parseFloat(document.getElementById(`montant_debours_${i}`).value) || 0;
+
+                            if (tauxHonoraire < 0 || tauxHonoraire > 100 || tauxDebours < 0 || tauxDebours > 100 || montantDebours < 0) {
+                                hasError = true;
+                                break;
+                            }
+                        }
+
+                        if (hasError) {
+                            e.preventDefault();
+                            alert('Veuillez corriger les erreurs dans le formulaire avant de continuer.');
+                        }
+                    });
+                }
+            });
         </script>

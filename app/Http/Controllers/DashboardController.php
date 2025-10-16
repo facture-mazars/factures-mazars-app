@@ -32,8 +32,9 @@ class DashboardController extends Controller
      $nbChantiersEnCours = $this->nbChantierEnCour();
     $allJ = $this->sommeTotalJourHomme();
     $allF = $this->nbFacture();
+    $chantiersIncomplets = $this->getChantiersIncomplets();
      // Retourner la vue avec les données
-     return view('dashboard', array_merge($annees, $chantiersParMois, $anneesfacture, $factures, $anneesBudget, $budgetsData,$nbClients,$nbChantiersEnCours,$allJ,$allF));
+     return view('dashboard', array_merge($annees, $chantiersParMois, $anneesfacture, $factures, $anneesBudget, $budgetsData,$nbClients,$nbChantiersEnCours,$allJ,$allF,$chantiersIncomplets));
  }
 
  // Méthode pour récupérer les chantiers par année
@@ -232,10 +233,16 @@ private function nbFacture(){
     return compact('facCount');
  }
 
+ private function getChantiersIncomplets(){
+    $chantiersIncomplets = \App\Models\Chantier::where('statut_completion', 'en_cours')
+        ->with(['client', 'typeMission'])
+        ->orderBy('updated_at', 'desc')
+        ->take(10)
+        ->get();
 
+    $nbChantiersIncomplets = \App\Models\Chantier::where('statut_completion', 'en_cours')->count();
 
-
-
-
+    return compact('chantiersIncomplets', 'nbChantiersIncomplets');
+ }
 
 }

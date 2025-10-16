@@ -104,6 +104,12 @@ class BudgetController extends Controller
         ]
     );
 
+    // Mettre à jour l'étape du chantier
+    $chantier = \App\Models\Chantier::find($request->id_chantier);
+    if ($chantier) {
+        $chantier->updateEtape('facture');
+    }
+
     return redirect()->route('facture.create', ['id_chantier' => $request->id_chantier])
                     ->with('success', 'Budgets ajoutés avec succès.');
 }

@@ -4,7 +4,7 @@
 @section('content')
 
 <style>
- 
+
 
 .table-container {
     max-width: 12000px;
@@ -49,10 +49,10 @@ tbody tr:hover {
 
 
 
-        
 
 
-     
+
+
 
     </div>
 </div>
@@ -69,13 +69,13 @@ tbody tr:hover {
 
 
 
-                <div class="title d-flex flex-wrap justify-content-between">
-                <div class="left">
+                <div class="title d-flex flex-wrap justify-content-between align-items-center">
+                <div class="left d-flex align-items-center" style="gap: 10px;">
                 <div class="select-style-1">
                 <div class="select-position select-sm">
 
-                            <form id="filterForm" method="GET" action="{{ route('barometre.filtre') }}">
-                  
+                            <form id="filterForm" method="GET" action="{{ route('barometre.filtre') }}" style="display: inline-block;">
+
                     <select class="light-bg" name="year" id="year" onchange="submitForm()">
                         <option value=""> Selectionner une année</option>
                         @foreach($availableYears as $year)
@@ -88,6 +88,12 @@ tbody tr:hover {
 
     </div>
     </div>
+    <a href="{{ route('barometre') }}" title="Réinitialiser" style="display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: #dc3545; border-radius: 5px; color: white; text-decoration: none; transition: background-color 0.3s; margin-top: -30px;;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+        </svg>
+    </a>
     </div>
     </div>
 
@@ -144,13 +150,13 @@ tbody tr:hover {
                 <td>{{ $barometre['sous_type_mission'] }}</td>
                 <td> {{ number_format($barometre['montant_honoraire_par_facture'], 2, ',', ' ') }} </td>
                 <td> {{ number_format($barometre['total_jour_homme'], 2, ',', ' ') }} </td>
-               
+
                 <td>{{ number_format($barometre['taux_moyen'], 2, ',', ' ') }} </td>
                 @php
                     // Initialiser le total annuel pour le chantier
                     $totalAnnuel = 0;
                 @endphp
-              
+
 
               @foreach($moisAnnees as $moisAnnee)
                 <td>
@@ -164,24 +170,24 @@ tbody tr:hover {
             @endforeach
 
             <td>{{ number_format($totalAnnuel, 2, ',', ' ') }}</td> <!-- Afficher le total annuel du chantier -->
-      
+
             </tr>
             @endforeach
 
 
-                    
 
-                  
+
+
                         <!-- end table row -->
                       </tbody>
-           
+
 
                       <tfoot>
     <tr>
     <td colspan="4"><strong>Total</strong></td>
     <td> {{ number_format($sommeTotalGlobal, 2, ',', ' ') }}  </td>
             <td>{{ number_format($sommeTotalJourHomme, 2, ',', ' ') }}</td>
-           
+
 
 
         <td><strong></strong></td>

@@ -47,8 +47,10 @@ class Chantier extends Model
         'ref_lp_contrat',
         'date_cloture',
         'ancien_mission',
-        'exercice_clos'
-      
+        'exercice_clos',
+        'statut_completion',
+        'etape_actuelle'
+
     ];
   
 
@@ -115,6 +117,41 @@ public function factures()
     return $this->hasMany(Facture::class, 'id_chantier', 'id_chantier');
 }
 
+/**
+ * Met à jour l'étape actuelle du chantier
+ */
+public function updateEtape($etape)
+{
+    $this->update([
+        'etape_actuelle' => $etape
+    ]);
+}
 
-  
+/**
+ * Marque le chantier comme complet
+ */
+public function marquerComplet()
+{
+    $this->update([
+        'statut_completion' => 'complet',
+        'etape_actuelle' => 'termine'
+    ]);
+}
+
+/**
+ * Vérifie si le chantier est complet
+ */
+public function estComplet()
+{
+    return $this->statut_completion === 'complet';
+}
+
+/**
+ * Vérifie si le chantier est en cours de création
+ */
+public function estEnCours()
+{
+    return $this->statut_completion === 'en_cours';
+}
+
 }

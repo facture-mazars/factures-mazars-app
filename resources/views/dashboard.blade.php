@@ -118,9 +118,55 @@
           </div>
           <!-- End Row -->
 
+          <!-- Section Chantiers Incomplets -->
+          @if($nbChantiersIncomplets > 0)
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card-style mb-30">
+                <div class="title d-flex flex-wrap align-items-center justify-content-between">
+                  <div class="left">
+                    <h6 class="text-medium mb-10">⚠️ Chantiers à compléter ({{ $nbChantiersIncomplets }})</h6>
+                    <p class="text-sm text-gray">Ces chantiers ont une création incomplète. Veuillez terminer le processus.</p>
+                  </div>
+                  <div class="right">
+                    <a href="{{ route('chantier.show') }}" class="main-btn primary-btn btn-hover btn-sm">Voir tous</a>
+                  </div>
+                </div>
+                <div class="table-responsive">
+                  <table class="table top-selling-table">
+                    <thead>
+                      <tr>
+                        <th><h6 class="text-sm text-medium">Client</h6></th>
+                        <th><h6 class="text-sm text-medium">Type Mission</h6></th>
+                        <th><h6 class="text-sm text-medium">Étape actuelle</h6></th>
+                        <th><h6 class="text-sm text-medium">Dernière mise à jour</h6></th>
+                        <th><h6 class="text-sm text-medium">Action</h6></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @foreach($chantiersIncomplets as $chantier)
+                      <tr>
+                        <td><p class="text-sm">{{ $chantier->client->nom_client ?? '-' }}</p></td>
+                        <td><p class="text-sm">{{ $chantier->typeMission->types ?? '-' }}</p></td>
+                        <td><span class="status-btn warning-btn">{{ ucfirst($chantier->etape_actuelle) }}</span></td>
+                        <td><p class="text-sm text-gray">{{ $chantier->updated_at->diffForHumans() }}</p></td>
+                        <td>
+                          <a href="{{ route('chantier.modifier', ['id_chantier' => $chantier->id_chantier]) }}" class="main-btn primary-btn btn-hover btn-sm">Continuer</a>
+                        </td>
+                      </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          @endif
+          <!-- End Section Chantiers Incomplets -->
 
-            
-       
+
+
+
           <form action="{{ route('dashboard') }}" method="GET">
           <div class="row">
             <div class="col-lg-7">

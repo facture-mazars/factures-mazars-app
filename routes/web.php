@@ -233,7 +233,8 @@ Route::get('/consultant/listeClient', [ConsultantController::class, 'show'])->na
     Route::get('/banques/edit/{id}', [ChoixBanqueController::class, 'edit'])->name('banques.edit');
 Route::put('/choix-banque/{id}', [ChoixBanqueController::class, 'update'])->name('banques.update');
 Route::get('/liste/banque', [ChoixBanqueController::class, 'listebanque'])->name('liste.banque');
-
+Route::get('/cheque', [ChoixBanqueController::class, 'indexCheque'])->name('cheque.index');
+Route::post('/cheque/update', [ChoixBanqueController::class, 'updateCheque'])->name('cheque.update');
 
 Route::get('/banques/create', [ChoixBanqueController::class, 'createbanque'])->name('banques.create');
 Route::post('/banques', [ChoixBanqueController::class, 'storebanque'])->name('banques.store');

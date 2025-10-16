@@ -335,8 +335,8 @@ $totalGlobal = 0;
                    'nom_client' => $barometre->nom_client,
                    'total_jour_homme' => $barometre->total_jour_homme,
                    'total_global' => $barometre->total_global,
-                   'montant_honoraire_total' => $barometre->montant_honoraire_total,
-                   'montant_honoraire_par_facture' => $barometre->montant_honoraire_par_facture,
+                   'montant_honoraire_total' => $barometre->total_facture,
+                   'montant_honoraire_par_facture' => $barometre->total_facture,
                    'taux_moyen' => $barometre->taux_moyen,
                    'factures_par_mois' => [],
                    'total_annuel' => 0,
@@ -344,7 +344,7 @@ $totalGlobal = 0;
            }
 
         // Ajouter le montant de la facture dans le mois correspondant
-        $montant = $barometre->montant_honoraire_total;
+        $montant = $barometre->total_facture;
         $moisAnnee = $barometre->mois_annee_facture;
 
         // Ajouter le montant de la barometre dans le mois correspondant
@@ -482,15 +482,15 @@ $totalGlobal = 0;
                     'nom_client' => $barometre->nom_client,
                     'total_jour_homme' => $barometre->total_jour_homme,
                     'total_global' => $barometre->total_global,
-                    'montant_honoraire_total' => $barometre->montant_honoraire_total,
-                    'montant_honoraire_par_facture' => $barometre->montant_honoraire_par_facture,
+                    'montant_honoraire_total' => $barometre->total_facture,
+                    'montant_honoraire_par_facture' => $barometre->total_facture,
                     'taux_moyen' => $barometre->taux_moyen,
                     'factures_par_mois' => [],
                     'total_annuel' => 0,
                 ];
             }
-    
-            $montant = $barometre->montant_honoraire_total;
+
+            $montant = $barometre->total_facture;
             $chantiers[$barometre->id_chantier]['factures_par_mois'][$barometre->mois_annee_facture] = $montant;
             $chantiers[$barometre->id_chantier]['total_annuel'] += $montant;
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Banque;
 use App\Models\ChoixBanque;
 use App\Models\Cheques;
+use App\Models\Cheque;
 use App\Models\FactureAEncaisser;
 use Illuminate\Http\Request;
 use App\Models\Encaissement;
@@ -38,6 +39,12 @@ class ChoixBanqueController extends Controller
                 'id_facture' => $id_facture,
                 'id_banque' => $id_banque,
             ]);
+        }
+
+        // Marquer le chantier comme complet (dernière étape du processus)
+        $facture = \App\Models\Facture::find($id_facture);
+        if ($facture && $facture->chantier) {
+            $facture->chantier->marquerComplet();
         }
 
         return redirect()->route('tranchelistes')->with('success', 'Choix des banques enregistré avec succès.');
@@ -113,9 +120,24 @@ class ChoixBanqueController extends Controller
 {
     // Récupérer toutes les banques
     $banques = Banque::all();
-    
+
     // Passer les banques à la vue
     return view('choix_banque.liste', compact('banques'));
+}
+
+
+public function indexCheque()
+{
+    // Récupérer le chèque unique (ou le créer s'il n'existe pas)
+    $cheque = Cheque::first();
+    if (!$cheque) {
+        $cheque = Cheque::create([
+            'nom' => 'Au nom du Cabinet Mazars Fivoarana',
+        ]);
+    }
+
+    // Passer le chèque à la vue
+    return view('cheque.index', compact('cheque'));
 }
 
 
@@ -148,5 +170,24 @@ public function storebanque(Request $request)
 }
 
 
-    
+public function updateCheque(Request $request)
+{
+    // Validation des données
+    $request->validate([
+        'nom' => 'required|string|max:255',
+    ]);
+
+    // Récupérer le chèque unique
+    $cheque = Cheque::first();
+
+    if ($cheque) {
+        $cheque->nom = $request->nom;
+        $cheque->save();
+    }
+
+    // Redirection avec un message de succès
+    return redirect()->route('liste.banque')->with('success', 'Nom du chèque mis à jour avec succès!');
+}
+
+
 }

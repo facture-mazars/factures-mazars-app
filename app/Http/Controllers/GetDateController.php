@@ -69,11 +69,17 @@ class GetDateController extends Controller
            
         ]);
 
-     
 
-        $chantier = GetDate::create($request->all());
 
-        return redirect()->route('equipe.create', ['id_chantier' => $chantier->id_chantier])->with('success', 'Date ajoutée avec succès.');
+        $getDate = GetDate::create($request->all());
+
+        // Mettre à jour l'étape du chantier
+        $chantier = \App\Models\Chantier::find($request->id_chantier);
+        if ($chantier) {
+            $chantier->updateEtape('equipe');
+        }
+
+        return redirect()->route('equipe.create', ['id_chantier' => $getDate->id_chantier])->with('success', 'Date ajoutée avec succès.');
     }
 
     /**

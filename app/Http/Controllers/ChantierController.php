@@ -239,6 +239,12 @@ class ChantierController extends Controller
 
     $chantier->save();
 
+    // Initialiser le statut de completion
+    $chantier->update([
+        'statut_completion' => 'en_cours',
+        'etape_actuelle' => 'date'
+    ]);
+
         return redirect()->route('getdate.create', ['id_chantier' => $chantier->id_chantier])->with('success', 'Chantier créé avec succès.');
     }
 
@@ -303,9 +309,9 @@ class ChantierController extends Controller
 
     public function show()
     {
-        $con = Chantier::with(['sousTypeMission', 'getDate','client'])
+        $con = Chantier::with(['sousTypeMission', 'getDate','client', 'factures', 'typeMission'])
         ->join('client', 'chantier.id_client', '=', 'client.id_client') // Ajustez cette jointure selon votre schéma
-        ->orderBy('client.code_client') 
+        ->orderBy('client.code_client')
         ->get();
 
         return view('chantier.listeChantier', compact('con'));

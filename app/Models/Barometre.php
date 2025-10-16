@@ -17,9 +17,16 @@ class Barometre extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'id_chantier', 'reference_chantier', 'date_initialisation', 
-        'nom_client', 'sous_type_mission', 'total_jour_homme', 
-        'total_global', 'taux_moyen', 'mois_annee_facture', 'total_facture'
+        'id_chantier',
+        'reference_chantier',
+        'date_initialisation',
+        'nom_client',
+        'sous_type_mission',
+        'total_jour_homme',
+        'total_global',
+        'taux_moyen',
+        'mois_annee_facture',
+        'total_facture'
     ];
 
     
