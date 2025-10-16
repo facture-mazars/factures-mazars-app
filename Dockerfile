@@ -9,16 +9,20 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     libpq-dev \
+    libzip-dev \
     zip \
     unzip \
     nodejs \
     npm
 
 # Installer les extensions PHP nécessaires
-RUN docker-php-ext-install pdo pdo_pgsql pgsql mbstring exif pcntl bcmath gd
+RUN docker-php-ext-install pdo pdo_pgsql pgsql mbstring exif pcntl bcmath gd zip
 
 # Installer Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Permettre à Composer de s'exécuter en tant que root
+ENV COMPOSER_ALLOW_SUPERUSER=1
 
 # Définir le répertoire de travail
 WORKDIR /var/www/html
