@@ -6,6 +6,12 @@ set -o errexit
 echo "🚀 Installation des dépendances Composer..."
 composer install --no-dev --optimize-autoloader --no-interaction
 
+echo "📦 Installation des dépendances npm..."
+npm ci --include=dev
+
+echo "🔨 Build des assets frontend avec Vite..."
+npm run build
+
 echo "🗄️  Exécution des migrations..."
 php artisan migrate --force --no-interaction
 
