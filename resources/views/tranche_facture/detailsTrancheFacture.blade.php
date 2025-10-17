@@ -25,7 +25,36 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-   
+  <style>
+    /* Supprimer la bordure bleue sous les titres de tableaux */
+    #invoice_wrapper .table thead th {
+      border-bottom: none !important;
+    }
+    #invoice_wrapper .table thead tr {
+      border-bottom: none !important;
+    }
+    #invoice_wrapper .table thead {
+      border-bottom: none !important;
+    }
+    #invoice_wrapper .invoice-table thead th {
+      border-bottom: none !important;
+    }
+    #invoice_wrapper .invoice-table thead tr {
+      border-bottom: none !important;
+    }
+    #invoice_wrapper .invoice-table thead {
+      border-bottom: none !important;
+    }
+    #invoice_wrapper .bg-active th {
+      border-bottom: none !important;
+    }
+    #invoice_wrapper .bg-active tr {
+      border-bottom: none !important;
+    }
+    #invoice_wrapper thead.bg-active {
+      border-bottom: none !important;
+    }
+  </style>
 
   <!-- ========== title-wrapper start ========== -->
   <div class="title-wrapper pt-30">
@@ -41,7 +70,7 @@
                 <div class="breadcrumb-wrapper">
                   <nav aria-label="breadcrumb">
                   <div class="invoice-btn-section clearfix d-print-none">
-                    <a id="invoice_download_btn" class="btn btn-lg btn-download btn-theme">
+                    <a id="invoice_download_btn" class="btn btn-lg btn-download btn-theme" style="color: white !important;">
                     <i class="lni lni-download mr-5"></i> PDF
                     </a>
                 </div>
@@ -153,10 +182,10 @@
                           <div class="col-sm-12">
                           <div class="invoice">
                             <table class="table invoice-table">
-                            <thead class="bg-active">
-                              <tr>
-                            <th class="text-center"> <h5>Date</h5></th>
-                            <th class="text-right"> <h5>N° Facture</h5></th>
+                            <thead class="bg-active" style="border-bottom: none !important;">
+                              <tr style="border-bottom: none !important;">
+                            <th class="text-center" style="border-bottom: none !important;"> <h5>Date</h5></th>
+                            <th class="text-right" style="border-bottom: none !important;"> <h5>N° Facture</h5></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -183,12 +212,12 @@
                     <div class="order-summary">
                         <div class="table-responsive">
                             <table class="table invoice-table">
-                                <thead class="bg-active">
-                                <tr>
-                                    <th><h5>Désignation</h5></th>
-                                    <th class="text-center"><h5>Totalité honoraires</h5></th>
-                                    <th class="text-center"><h5>Tranche</h5></th>
-                                    <th class="text-center"><h5>Montant <span style="color:transparent;"> ........................................</span> </h5></th>
+                                <thead class="bg-active" style="border-bottom: none !important;">
+                                <tr style="border-bottom: none !important;">
+                                    <th style="border-bottom: none !important;"><h5>Désignation</h5></th>
+                                    <th class="text-center" style="border-bottom: none !important;"><h5>Totalité honoraires</h5></th>
+                                    <th class="text-center" style="border-bottom: none !important;"><h5>Tranche</h5></th>
+                                    <th class="text-center" style="border-bottom: none !important;"><h5>Montant <span style="color:transparent;"> ........................................</span> </h5></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -448,18 +477,18 @@
           <div style="margin-top: -40px;" class="order-summary">
                         <div class="table-responsive">
                             <table class="table invoice-table">
-                              <thead>
-                                  <tr>
-                                      <th style="text-align:center;">
+                              <thead style="border-bottom: none !important;">
+                                  <tr style="border-bottom: none !important;">
+                                      <th style="text-align:center; border-bottom: none !important;">
                                           <h6>Payable par :</h6>
                                       </th>
-                                      <th style="text-align:center;">
+                                      <th style="text-align:center; border-bottom: none !important;">
                                           <h6>Banque</h6>
                                       </th>
-                                      <th style="text-align:center;">
+                                      <th style="text-align:center; border-bottom: none !important;">
                                           <h6>Compte bancaire</h6>
                                       </th>
-                                      <th style="text-align:center;">
+                                      <th style="text-align:center; border-bottom: none !important;">
                                           <h6>Modalité de paiement</h6>
                                       </th>
                                   </tr>
