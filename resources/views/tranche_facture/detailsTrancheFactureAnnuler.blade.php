@@ -549,17 +549,19 @@
                
 
       
+          @if (Auth::user()->role === 'Admin')
           <div class="invoice-action">
                     <ul class="d-flex flex-wrap align-items-center justify-content-center">
                       <li class="m-2">
-                           
+
                         <a href="{{ route('encaissement.create', ['id_tranche_facture' => $trancheFacture->id_tranche_facture]) }}" class="main-btn primary-btn-outline btn-hover">
                           Encaisser facture
                         </a>
                       </li>
-                    
+
                     </ul>
                   </div>
+          @endif
 
             </div>
         </div>
