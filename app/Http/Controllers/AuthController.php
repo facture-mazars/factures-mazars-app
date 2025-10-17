@@ -54,7 +54,10 @@ class AuthController extends Controller
         $utilisateur = Users::where('numero', $request->numero)->first();
 
         if ($utilisateur && Hash::check($request->mdp, $utilisateur->mdp)) {
-            Auth::login($utilisateur);
+            // Se souvenir de l'utilisateur si la checkbox est cochée
+            $remember = $request->has('remember');
+            Auth::login($utilisateur, $remember);
+
             // Redirection basée sur le rôle
             if ($utilisateur->role === 'Consultant') {
                 return redirect()->intended('/consultant/listeClient'); // Page d'accueil pour consultant

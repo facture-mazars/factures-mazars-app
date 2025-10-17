@@ -56,7 +56,7 @@
          
              
                 <!-- profile start -->
-                <div class="profile-box ml-15">
+                <div class="profile-box ml-15 d-flex align-items-center">
                   <button class="dropdown-toggle bg-transparent border-0" type="button" id="profile"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     <div class="profile-info">
@@ -66,7 +66,7 @@
                         </div>
                         <div>
                         @auth
-                       
+
                           <p> {{ Auth::user()->nom }} </p>
                           @endauth
                           <p class="text-success"> {{Auth::user()->role }}</p>
@@ -77,17 +77,22 @@
                   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profile">
                     <li>
                       <div class="author-info flex items-center !p-1">
-                       
+
                         <div class="content">
-                      
-                          <a class="text-black/40 hover:text-black text-xs" href=" {{ route('logout') }} "> 
+
+                          <a class="text-black/40 hover:text-black text-xs" href=" {{ route('logout') }} ">
                             <i class="lni lni-exit"></i>  Se deconnecter
                          </a>
                         </div>
                       </div>
                     </li>
-                  
+
                   </ul>
+
+                  <!-- Bouton de déconnexion visible -->
+                  <a href="{{ route('logout') }}" class="ms-3">
+                    <i class="lni lni-exit"></i> Déconnexion
+                  </a>
                 </div>
                 <!-- profile end -->
               </div>

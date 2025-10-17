@@ -270,3 +270,24 @@ a:hover {
 .form-select:focus {
     box-shadow: 0 0 0 4px rgba(54, 92, 245, 0.2) !important;
 }
+
+/* Bouton déconnexion navbar - style identique aux boutons d'accueil */
+.navbar .profile-box a[href*="logout"] {
+    display: inline-block;
+    color: white !important;
+    padding: 8px 20px;
+    border-radius: 4px;
+    border: 1px solid #ef4444;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-size: 14px;
+    white-space: nowrap;
+    background: #ef4444;
+}
+
+.navbar .profile-box a[href*="logout"]:hover {
+    background: #dc2626 !important;
+    border-color: #dc2626 !important;
+    color: white !important;
+}

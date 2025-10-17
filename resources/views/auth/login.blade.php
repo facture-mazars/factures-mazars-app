@@ -172,6 +172,33 @@
             color: #365CF5;
         }
 
+        .form-check {
+            padding-left: 1.5em;
+        }
+
+        .form-check-input {
+            width: 1.2em;
+            height: 1.2em;
+            margin-top: 0.15em;
+            cursor: pointer;
+        }
+
+        .form-check-input:checked {
+            background-color: #365CF5;
+            border-color: #365CF5;
+        }
+
+        .form-check-input:focus {
+            border-color: #365CF5;
+            box-shadow: 0 0 0 3px rgba(54, 92, 245, 0.1);
+        }
+
+        .form-check-label {
+            color: #1A2142;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
         @media (max-width: 576px) {
             .login-container {
                 padding: 40px 25px;
@@ -211,12 +238,21 @@
 
             <div class="mb-3">
                 <label for="numero" class="form-label">Numéro matricule</label>
-                <input type="text" name="numero" id="numero" class="form-control" placeholder="Entrez votre numéro" required>
+                <input type="text" name="numero" id="numero" class="form-control" placeholder="Entrez votre numéro" autocomplete="username" list="saved-numbers" required>
+                <datalist id="saved-numbers">
+                </datalist>
             </div>
 
             <div class="mb-3">
                 <label for="mdp" class="form-label">Mot de passe</label>
-                <input type="password" name="mdp" id="mdp" class="form-control" placeholder="Entrez votre mot de passe" required>
+                <input type="password" name="mdp" id="mdp" class="form-control" placeholder="Entrez votre mot de passe" autocomplete="current-password" required>
+            </div>
+
+            <div class="mb-3 form-check">
+                <input type="checkbox" name="remember" id="remember" class="form-check-input">
+                <label class="form-check-label" for="remember">
+                    Se souvenir de moi
+                </label>
             </div>
 
             <button type="submit" class="btn-login">Se connecter</button>
@@ -232,5 +268,47 @@
     </div>
 
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js')}}"></script>
+
+    <script>
+        // Charger les identifiants sauvegardés
+        document.addEventListener('DOMContentLoaded', function() {
+            const numeroInput = document.getElementById('numero');
+            const mdpInput = document.getElementById('mdp');
+            const rememberCheckbox = document.getElementById('remember');
+            const datalist = document.getElementById('saved-numbers');
+            const form = document.querySelector('form');
+
+            // Récupérer les identifiants sauvegardés depuis localStorage
+            const savedCredentials = JSON.parse(localStorage.getItem('savedCredentials') || '{}');
+
+            // Remplir le datalist avec les numéros sauvegardés
+            Object.keys(savedCredentials).forEach(numero => {
+                const option = document.createElement('option');
+                option.value = numero;
+                datalist.appendChild(option);
+            });
+
+            // Remplir automatiquement le mot de passe quand on sélectionne un numéro
+            numeroInput.addEventListener('input', function() {
+                const numero = this.value.trim();
+                if (savedCredentials[numero]) {
+                    mdpInput.value = savedCredentials[numero];
+                    rememberCheckbox.checked = true;
+                }
+            });
+
+            // Sauvegarder les identifiants quand le formulaire est soumis avec "Se souvenir de moi" coché
+            form.addEventListener('submit', function() {
+                if (rememberCheckbox.checked) {
+                    const numero = numeroInput.value.trim();
+                    const mdp = mdpInput.value;
+                    if (numero && mdp) {
+                        savedCredentials[numero] = mdp;
+                        localStorage.setItem('savedCredentials', JSON.stringify(savedCredentials));
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
