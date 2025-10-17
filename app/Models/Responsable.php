@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Responsable extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'responsable';
 
     protected $fillable = [
@@ -19,12 +19,8 @@ class Responsable extends Model
 
     protected $primaryKey = 'id_responsable'; // Nom de la clé primaire
 
-
-
-
     public function budget()
     {
         return $this->hasMany(Budget::class, 'responsable', 'id_responsable');
     }
 }
-

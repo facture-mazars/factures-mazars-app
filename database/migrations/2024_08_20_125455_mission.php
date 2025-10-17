@@ -41,18 +41,14 @@ return new class extends Migration
             $table->boolean('framework_agreement');
             $table->text('details_framework_agreement');
 
-
-           
             $table->timestamps();
 
-       
             $table->foreign('id_client')->references('id_client')->on('client');
             $table->foreign('id_type_mission')->references('id_type_mission')->on('type_mission');
             $table->foreign('id_sous_type_mission')->references('id_sous_type_mission')->on('sous_type_mission');
             $table->foreign('id_partner_1')->references('id_partner')->on('partner');
             $table->foreign('id_partner_2')->references('id_partner')->on('partner');
             $table->foreign('id_monnaie')->references('id_monnaie')->on('monnaie');
-       
 
         });
     }

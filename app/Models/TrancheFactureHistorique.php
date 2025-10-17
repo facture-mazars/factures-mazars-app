@@ -24,12 +24,8 @@ class TrancheFactureHistorique extends Model
         'date_modification',
     ];
 
- 
     public function trancheFacture()
     {
         return $this->belongsTo(TrancheFacture::class, 'id_tranche_facture');
     }
-
- 
-
 }

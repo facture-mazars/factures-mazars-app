@@ -18,15 +18,14 @@ return new class extends Migration
             $table->float('montant_honoraire');
             $table->float('taux_debours');
             $table->float('montant_debours');
-            $table->unsignedBigInteger('id_taux')->nullable()->constrained();;
+            $table->unsignedBigInteger('id_taux')->nullable()->constrained();
             $table->date('date_prevision_facture')->nullable();
             $table->date('date_prevision_recouvrement')->nullable();
             $table->timestamps();
             // Foreign keys
             $table->foreign('id_facture')->references('id_facture')->on('facture');
             $table->foreign('id_taux')->references('id_taux')->on('taux');
-            
-            
+
         });
     }
 

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Imports\BudgetFactureImport;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ImportController extends Controller
 {
@@ -12,8 +12,7 @@ class ImportController extends Controller
     {
         return view('import.budgetfactureImport');
     }
-  
-    
+
     public function import(Request $request)
     {
         $file = $request->file('excel_file');

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Monnaie extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'monnaie';
 
     protected $fillable = [
@@ -18,9 +18,6 @@ class Monnaie extends Model
     public $timestamps = false;
 
     protected $primaryKey = 'id_monnaie'; // Nom de la clé primaire
-
-
-
 
     public function contrat()
     {

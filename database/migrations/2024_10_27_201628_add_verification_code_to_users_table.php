@@ -15,12 +15,11 @@ return new class extends Migration
             $table->string('verification_code')->nullable()->after('mdp');
         });
     }
-    
+
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('verification_code');
         });
     }
-    
 };

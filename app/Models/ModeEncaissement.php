@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ModeEncaissement extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'mode_encaissement';
 
     protected $fillable = [
@@ -18,9 +18,6 @@ class ModeEncaissement extends Model
     public $timestamps = false;
 
     protected $primaryKey = 'id_mode_encaissement'; // Nom de la clé primaire
-
-
-
 
     public function encaissement()
     {

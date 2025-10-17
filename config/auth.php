@@ -59,19 +59,19 @@ return [
     |
     */
 
-  'providers' => [
-    'users' => [
-        'driver' => 'eloquent',
-        'model' => App\Models\Users::class,
-                 ],
-            ],
+    'providers' => [
+        'users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Users::class,
+        ],
+    ],
 
     'guards' => [
-    'web' => [
-        'driver' => 'session',
-        'provider' => 'users',
+        'web' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
     ],
-],
 
     /*
     |--------------------------------------------------------------------------

@@ -15,7 +15,6 @@ return new class extends Migration
             $table->string('secteur_mazars')->nullable();  // false = non encaissée, true = encaissée
         });
     }
-    
 
     /**
      * Reverse the migrations.

@@ -12,11 +12,11 @@ class Contrat extends Model
     protected $table = 'contrat';
 
     protected $primaryKey = 'id_contrat'; // Spécifier la clé primaire
+
     public $incrementing = true; // S'assurer que la clé primaire est auto-incrémentée
 
-
     protected $fillable = [
-       'id_client',
+        'id_client',
         'id_monnaie',
         'lp_contrat',
         'exercice_clos',
@@ -41,11 +41,8 @@ class Contrat extends Model
         'project_code',
         'nombre_annee',
         'evaluation_horaire',
-        'bureau_mazars'
+        'bureau_mazars',
     ];
-  
-
-   
 
     // Relation avec le modèle Client
     public function client()
@@ -53,28 +50,19 @@ class Contrat extends Model
         return $this->belongsTo(Client::class, 'id_client');
     }
 
-
-
     public function monnaie()
     {
         return $this->belongsTo(Monnaie::class, 'id_monnaie');
     }
- // Relation avec le modèle TypeMission
+    // Relation avec le modèle TypeMission
 
+    public function partner1()
+    {
+        return $this->belongsTo(Partner::class, 'partner', 'id_partner');
+    }
 
- public function partner1()
- {
-     return $this->belongsTo(Partner::class, 'partner','id_partner');
- }
-
- public function partner2()
- {
-     return $this->belongsTo(Partner::class, 'partner','id_partner');
- }
-
-
-
-
-
-  
+    public function partner2()
+    {
+        return $this->belongsTo(Partner::class, 'partner', 'id_partner');
+    }
 }

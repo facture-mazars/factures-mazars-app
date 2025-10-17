@@ -15,7 +15,6 @@ return new class extends Migration
             $table->boolean('etat')->default(false); // false = non encaissée, true = encaissée
         });
     }
-    
 
     /**
      * Reverse the migrations.

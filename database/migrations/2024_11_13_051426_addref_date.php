@@ -15,12 +15,11 @@ return new class extends Migration
             $table->string('reference_date')->nullable(); // valeurs possibles : 'user', 'consultant', 'admin', etc.
         });
     }
-    
+
     public function down()
     {
         Schema::table('get_date', function (Blueprint $table) {
             $table->dropColumn('reference_date');
         });
     }
-    
 };

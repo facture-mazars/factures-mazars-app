@@ -10,12 +10,13 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    { Schema::create('type_mission', function (Blueprint $table) {
-        $table->id('id_type_mission');
-        $table->string('code_mission', 50);
-        $table->string('types', 250);
-        $table->timestamps();
-    });
+    {
+        Schema::create('type_mission', function (Blueprint $table) {
+            $table->id('id_type_mission');
+            $table->string('code_mission', 50);
+            $table->string('types', 250);
+            $table->timestamps();
+        });
     }
 
     /**

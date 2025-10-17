@@ -11,7 +11,7 @@ class ChantiersChart extends Chart
     {
         parent::__construct();
         $this->displayLegend(true)
-             ->displayLabels(true);
+            ->displayLabels(true);
     }
 
     public function data()
@@ -32,8 +32,8 @@ class ChantiersChart extends Chart
 
         // Setup the chart data
         $this->labels($months)
-             ->dataset('Chantiers en cours', 'line', $counts)
-             ->color('rgba(75, 192, 192, 0.2)')
-             ->backgroundcolor('rgba(75, 192, 192, 0.2)');
+            ->dataset('Chantiers en cours', 'line', $counts)
+            ->color('rgba(75, 192, 192, 0.2)')
+            ->backgroundcolor('rgba(75, 192, 192, 0.2)');
     }
 }

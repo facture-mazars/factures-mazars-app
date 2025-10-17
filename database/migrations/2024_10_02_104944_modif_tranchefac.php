@@ -15,7 +15,6 @@ return new class extends Migration
             $table->date('date_reel_fac')->nullable();  // false = non encaissée, true = encaissée
         });
     }
-    
 
     /**
      * Reverse the migrations.

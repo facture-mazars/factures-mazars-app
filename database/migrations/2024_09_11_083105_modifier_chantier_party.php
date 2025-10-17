@@ -15,16 +15,13 @@ return new class extends Migration
     {
         Schema::table('chantier', function (Blueprint $table) {
 
-
             $table->unsignedBigInteger('id_pays_intervention')->nullable(); // Ajoutez cette ligne
-
-          
 
             $table->foreign('id_pays_intervention')->references('id_pays')->on('pays');
 
-              // Supprimer des colonnes existantes
-              $table->dropColumn('pays_intervention');
-         
+            // Supprimer des colonnes existantes
+            $table->dropColumn('pays_intervention');
+
         });
     }
 
@@ -39,7 +36,7 @@ return new class extends Migration
             // Réajouter les colonnes supprimées
             $table->boolean('pays_intervention')->nullable();
             $table->dropColumn('id_pays_intervention')->nullable();
-     
+
         });
     }
 };

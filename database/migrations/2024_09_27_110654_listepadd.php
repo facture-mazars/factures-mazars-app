@@ -15,7 +15,6 @@ return new class extends Migration
             $table->string('trigramme')->nullable(); // false = non encaissée, true = encaissée
         });
     }
-    
 
     /**
      * Reverse the migrations.

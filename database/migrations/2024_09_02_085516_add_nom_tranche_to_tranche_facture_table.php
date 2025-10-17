@@ -15,12 +15,11 @@ return new class extends Migration
             $table->string('nom_tranche')->nullable(); // Ajoutez cette ligne
         });
     }
-    
+
     public function down()
     {
         Schema::table('tranche_facture', function (Blueprint $table) {
             $table->dropColumn('nom_tranche');
         });
     }
-    
 };

@@ -15,7 +15,6 @@ return new class extends Migration
             $table->enum('type', ['PIE', 'OMB'])->nullable();  // false = non encaissée, true = encaissée
         });
     }
-    
 
     /**
      * Reverse the migrations.

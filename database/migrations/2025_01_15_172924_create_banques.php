@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('compte')->nullable();
             $table->string('type')->nullable();
 
-            $table->timestamps();  
+            $table->timestamps();
         });
     }
 

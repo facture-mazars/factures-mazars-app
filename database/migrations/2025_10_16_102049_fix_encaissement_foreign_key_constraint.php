@@ -17,9 +17,9 @@ return new class extends Migration
 
             // Create new foreign key constraint that references 'banques'
             $table->foreign('id_banque')
-                  ->references('id_banque')
-                  ->on('banques')
-                  ->onDelete('cascade');
+                ->references('id_banque')
+                ->on('banques')
+                ->onDelete('cascade');
         });
     }
 
@@ -34,9 +34,9 @@ return new class extends Migration
 
             // Restore the old foreign key constraint that references 'banque'
             $table->foreign('id_banque')
-                  ->references('id_banque')
-                  ->on('banque')
-                  ->onDelete('cascade');
+                ->references('id_banque')
+                ->on('banque')
+                ->onDelete('cascade');
         });
     }
 };

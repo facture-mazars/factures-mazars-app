@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,6 +10,7 @@ class Equipe extends Model
     use HasFactory;
 
     protected $table = 'equipe';
+
     protected $primaryKey = 'id_equipe';
 
     protected $fillable = [
@@ -17,12 +19,11 @@ class Equipe extends Model
         'id_liste_personnel',
     ];
 
-
- // Dans le modèle `Equipe`
-public function budget()
-{
-    return $this->hasMany(Budget::class, 'id_equipe');
-}
+    // Dans le modèle `Equipe`
+    public function budget()
+    {
+        return $this->hasMany(Budget::class, 'id_equipe');
+    }
 
     public function grade()
     {

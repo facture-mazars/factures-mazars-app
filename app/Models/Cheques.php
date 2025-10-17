@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Cheques extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'cheque';
 
     protected $fillable = [
@@ -20,10 +20,8 @@ class Cheques extends Model
 
     protected $primaryKey = 'id_cheque'; // Nom de la clé primaire
 
-
     public function encaissement()
     {
         return $this->hasMany(Encaissement::class, 'cheque', 'id_cheque');
     }
-
 }

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Mandat extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'mandat';
 
     protected $fillable = [
@@ -18,9 +18,6 @@ class Mandat extends Model
     public $timestamps = false;
 
     protected $primaryKey = 'id_mandat'; // Nom de la clé primaire
-
-
-
 
     public function chantier()
     {

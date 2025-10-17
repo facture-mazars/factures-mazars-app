@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/fullcalendar.css')}}" />
     <link rel="stylesheet" id="theme-stylesheet" href="{{ asset('assets/css/main.css')}}" />
     <link rel="stylesheet" href="{{ asset('assets/css/select2.min.css')}}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/custom-theme.css')}}" />
 
 
 

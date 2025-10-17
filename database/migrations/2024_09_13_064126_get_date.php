@@ -13,18 +13,17 @@ return new class extends Migration
     {
         Schema::create('get_date', function (Blueprint $table) {
             $table->id('id_get_date');
-          
-            $table->unsignedBigInteger('id_chantier')->nullable();
-               $table->string('reference_chantier', 250)->nullable();
-               $table->date('date_debut_intervention')->nullable();
-               $table->date('date_fin_intervention')->nullable();
-               $table->date('date_initialisation')->nullable();
 
+            $table->unsignedBigInteger('id_chantier')->nullable();
+            $table->string('reference_chantier', 250)->nullable();
+            $table->date('date_debut_intervention')->nullable();
+            $table->date('date_fin_intervention')->nullable();
+            $table->date('date_initialisation')->nullable();
 
             $table->timestamps();
 
             $table->foreign('id_chantier')->references('id_chantier')->on('chantier');
-           
+
         });
     }
 

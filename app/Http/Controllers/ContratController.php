@@ -2,33 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Contrat;
 use App\Models\Client;
+use App\Models\Contrat;
 use App\Models\Monnaie;
 use App\Models\Partner;
-
-
+use Illuminate\Http\Request;
 
 class ContratController extends Controller
 {
-      public function create()
+    public function create()
     {
         // Récupérer le client associé à l'id_clients
         $clients = Client::all();
         $monnaie = Monnaie::all();
-        $partners1 = Partner::all(); 
-        $partners2 = Partner::all(); 
-     
+        $partners1 = Partner::all();
+        $partners2 = Partner::all();
+
         // Retourner la vue avec le formulaire de création de contrat
-        return view('contrat.insertContrat', compact('clients','monnaie','partners1','partners2'));
+        return view('contrat.insertContrat', compact('clients', 'monnaie', 'partners1', 'partners2'));
     }
 
     // Méthode pour enregistrer le contrat dans la base de données
     public function store(Request $request)
     {
         // dd($request->all());
-       $request->validate([
+        $request->validate([
             'id_client' => 'required|exists:client,id_client',
             'id_monnaie' => 'required|exists:monnaie,id_monnaie',
             'lp_contrat' => 'nullable|in:LP,Contrat',
@@ -62,12 +60,10 @@ class ContratController extends Controller
         return redirect()->route('dashboard')->with('success', 'Contrat créé avec succès.');
     }
 
-
     public function show()
     {
         $con = Contrat::get();
+
         return view('contrat.listeContrat', compact('con'));
     }
-
-
 }

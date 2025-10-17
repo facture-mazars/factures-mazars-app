@@ -11,9 +11,9 @@ class TotalBudget extends Model
 
     protected $table = 'total_budget';
 
-    protected $primaryKey = 'id_total_budget'; 
-    public $incrementing = true; 
+    protected $primaryKey = 'id_total_budget';
 
+    public $incrementing = true;
 
     protected $fillable = [
         'id_chantier',
@@ -21,6 +21,4 @@ class TotalBudget extends Model
         'total_global',
         'taux_moyen',
     ];
-
-
 }

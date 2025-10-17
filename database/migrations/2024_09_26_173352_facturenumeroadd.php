@@ -15,7 +15,6 @@ return new class extends Migration
             $table->integer('numero_facture')->default(0); // false = non encaissée, true = encaissée
         });
     }
-    
 
     /**
      * Reverse the migrations.

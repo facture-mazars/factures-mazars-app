@@ -15,10 +15,8 @@ return new class extends Migration
     {
         Schema::table('banque', function (Blueprint $table) {
 
-
-            
             $table->string('type_monnaie')->nullable();
-        
+
         });
     }
 
@@ -31,10 +29,7 @@ return new class extends Migration
     {
         Schema::table('banque', function (Blueprint $table) {
             // Réajouter les colonnes supprimées
-        
-      
-         
-     
+
         });
     }
 };

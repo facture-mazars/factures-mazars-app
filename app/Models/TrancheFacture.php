@@ -4,8 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\TrancheFactureHistorique;
-use Illuminate\Support\Facades\Auth;
 
 class TrancheFacture extends Model
 {
@@ -51,8 +49,8 @@ class TrancheFacture extends Model
         'numero_facture',
         'date_reel_fac',
         'id_pourcentage_debours',
-           'date_facture_annule',
-        'numero_facture_annule'
+        'date_facture_annule',
+        'numero_facture_annule',
     ];
 
     /**
@@ -64,15 +62,15 @@ class TrancheFacture extends Model
     }
 
     public function chantier()
-{
-    return $this->hasOneThrough(Chantier::class, Budget::class);
-}
-
+    {
+        return $this->hasOneThrough(Chantier::class, Budget::class);
+    }
 
     public function societes()
     {
         return $this->belongsTo(Societes::class, 'id_societe');
     }
+
     /**
      * Get the taux that is associated with the tranche.
      */
@@ -80,7 +78,6 @@ class TrancheFacture extends Model
     {
         return $this->belongsTo(Taux::class, 'id_taux');
     }
-
 
     public function pourcentageDebours()
     {
@@ -98,23 +95,18 @@ class TrancheFacture extends Model
     }
 
     public function getTrancheNumberAttribute()
-{
-    // Extrait les chiffres du champ nom_tranche
-    return (int) filter_var($this->nom_tranche, FILTER_SANITIZE_NUMBER_INT);
-}
+    {
+        // Extrait les chiffres du champ nom_tranche
+        return (int) filter_var($this->nom_tranche, FILTER_SANITIZE_NUMBER_INT);
+    }
 
     protected $dates = [
         'date_prevision_facture',
         'date_prevision_recouvrement',
     ];
 
-
-
-
     public function historiques()
     {
         return $this->hasMany(TrancheFactureHistorique::class, 'id_tranche_facture');
     }
-
-
 }

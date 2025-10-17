@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Encaissement;
-use App\Models\TrancheFacture;
-use App\Models\ModeEncaissement;
-use App\Models\SousTypeMission;
 use App\Models\TypeMission;
+use Illuminate\Http\Request;
 
 class MissionController extends Controller
 {
@@ -18,8 +15,7 @@ class MissionController extends Controller
      */
     public function index()
     {
-       
-      
+
         return view('mission.mission');
     }
 
@@ -28,11 +24,10 @@ class MissionController extends Controller
      *
      * @return \Illuminate\View\View
      */
-  
+
     /**
      * Stocker un nouvel encaissement dans la base de données.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
@@ -40,10 +35,8 @@ class MissionController extends Controller
         $request->validate([
             'code_mission' => 'nullable|string|max:50',
             'types' => 'nullable|string|max:250',
-           
-        ]);
 
-     
+        ]);
 
         TypeMission::create($request->all());
 
@@ -56,10 +49,4 @@ class MissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\View\View
      */
-
-
-    
- 
-
-   
 }

@@ -12,10 +12,9 @@ return new class extends Migration
     public function up()
     {
         Schema::table('chantier', function (Blueprint $table) {
-            $table->date('date_cloture')->nullable(); 
+            $table->date('date_cloture')->nullable();
         });
     }
-    
 
     /**
      * Reverse the migrations.

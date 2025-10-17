@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Encaissement;
-use App\Models\TrancheFacture;
-use App\Models\ModeEncaissement;
 use App\Models\SousTypeMission;
 use App\Models\TypeMission;
+use Illuminate\Http\Request;
 
 class SousMissionController extends Controller
 {
@@ -19,21 +17,19 @@ class SousMissionController extends Controller
     public function index()
     {
         $typess = TypeMission::all();
-      
+
         return view('mission.sous', compact('typess'));
     }
-
 
     /**
      * Afficher le formulaire de création d'un nouvel encaissement.
      *
      * @return \Illuminate\View\View
      */
-  
+
     /**
      * Stocker un nouvel encaissement dans la base de données.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
@@ -42,10 +38,8 @@ class SousMissionController extends Controller
             'id_type_mission' => 'required|exists:type_mission,id_type_mission',
             'code_sous_mission' => 'nullable|string|max:50',
             'types' => 'nullable|string|max:250',
-           
-        ]);
 
-     
+        ]);
 
         SousTypeMission::create($request->all());
 
@@ -58,10 +52,4 @@ class SousMissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\View\View
      */
-
-
-    
- 
-
-   
 }

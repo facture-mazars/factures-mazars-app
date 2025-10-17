@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('client', function (Blueprint $table) {
             $table->id('id_client');
-            $table->string('code_client',100);
+            $table->string('code_client', 100);
             $table->string('nom_client');
             $table->string('sigle_client')->nullable();
             $table->string('n_rcs')->nullable();
@@ -41,18 +41,16 @@ return new class extends Migration
             $table->string('controle_interne')->nullable();
             $table->string('dsi')->nullable();
             $table->string('ca')->nullable();
-            
+
             $table->timestamps();
-            
 
             // Définir les clés étrangères
-           
+
             $table->foreign('id_pays')->references('id_pays')->on('pays')->onDelete('set null');
             $table->foreign('id_pays_groupe')->references('id_pays')->on('pays')->onDelete('set null');
             $table->foreign('id_secteur_activite')->references('id_secteur_activite')->on('secteur_activite')->onDelete('set null');
             $table->foreign('id_forme_juridique')->references('id_forme_juridique')->on('forme_juridique')->onDelete('set null');
 
-        
         });
     }
 

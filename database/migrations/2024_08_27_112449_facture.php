@@ -19,15 +19,12 @@ return new class extends Migration
             $table->float('debours_decaissable');
             $table->float('debours_non_decaissable');
             $table->integer('nb_tranche_facture');
-           $table->integer('etat')->default(0);
-            
-
-        
+            $table->integer('etat')->default(0);
 
             $table->timestamps(); // Ajoute les colonnes created_at et updated_at
-               
-                $table->foreign('id_chantier')->references('id_chantier')->on('chantier');
-                 });
+
+            $table->foreign('id_chantier')->references('id_chantier')->on('chantier');
+        });
     }
 
     /**

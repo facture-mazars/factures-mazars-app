@@ -17,9 +17,8 @@ return new class extends Migration
             $table->unsignedBigInteger('id_grade');
             $table->unsignedBigInteger('id_liste_personnel');
 
-
             $table->timestamps();
-            
+
             $table->foreign('id_chantier')->references('id_chantier')->on('chantier');
             $table->foreign('id_grade')->references('id_grade')->on('grade');
             $table->foreign('id_liste_personnel')->references('id_liste_personnel')->on('liste_personnel');
@@ -29,8 +28,5 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
-        
-    }
+    public function down(): void {}
 };

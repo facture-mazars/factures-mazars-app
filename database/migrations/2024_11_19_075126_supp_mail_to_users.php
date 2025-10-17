@@ -15,10 +15,9 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
 
+            // Supprimer des colonnes existantes
+            $table->dropColumn('email');
 
-              // Supprimer des colonnes existantes
-              $table->dropColumn('email');
-             
         });
     }
 
@@ -32,9 +31,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             // Réajouter les colonnes supprimées
             $table->string('email')->nullable();
-      
-         
-     
+
         });
     }
 };

@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use App\Notifications\VerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Notifications\VerifyEmail;
 
 class User extends Authenticatable
 {
@@ -17,6 +17,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $table = 'utilisateur';
+
     protected $fillable = [
         'nom',
         'numero',
@@ -48,7 +49,6 @@ class User extends Authenticatable
 
     public function sendEmailVerificationNotification()
     {
-        $this->notify(new VerifyEmail());
+        $this->notify(new VerifyEmail);
     }
-  
 }

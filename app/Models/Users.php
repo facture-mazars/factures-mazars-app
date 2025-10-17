@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Notifications\VerifyEmail;
 
 class Users extends Authenticatable implements MustVerifyEmail
 {
@@ -18,12 +17,13 @@ class Users extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $table = 'users';
+
     protected $fillable = [
         'nom',
         'numero',
         'mdp',
         'role',
-    
+
     ];
 
     /**
@@ -48,6 +48,4 @@ class Users extends Authenticatable implements MustVerifyEmail
             'mdp' => 'hashed',
         ];
     }
-
-
 }

@@ -16,7 +16,6 @@ class Encaissement extends Model
      */
     protected $table = 'encaissement';
 
-
     /**
      * The primary key associated with the table.
      *
@@ -69,11 +68,10 @@ class Encaissement extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-
-     public function Banques()
-     {
-         return $this->belongsTo(Banques::class, 'id_banque');
-     }
+    public function Banques()
+    {
+        return $this->belongsTo(Banques::class, 'id_banque');
+    }
 
     public function Cheques()
     {

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_facture');
             $table->unsignedBigInteger('id_budget');
             $table->timestamps();
-    
+
             $table->foreign('id_facture')->references('id_facture')->on('facture')->onDelete('cascade');
             $table->foreign('id_budget')->references('id_budget')->on('budget')->onDelete('cascade');
         });

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class FormeJuridique extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'forme_juridique';
 
     protected $fillable = [
@@ -18,9 +18,6 @@ class FormeJuridique extends Model
     public $timestamps = true;
 
     protected $primaryKey = 'id_forme_juridique'; // Nom de la clé primaire
-
-
-
 
     public function client()
     {

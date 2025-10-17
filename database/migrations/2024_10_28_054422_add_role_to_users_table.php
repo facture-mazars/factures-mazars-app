@@ -15,12 +15,11 @@ return new class extends Migration
             $table->string('role')->default('consultant'); // valeurs possibles : 'user', 'consultant', 'admin', etc.
         });
     }
-    
+
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('role');
         });
     }
-    
 };

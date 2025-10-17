@@ -15,12 +15,11 @@ return new class extends Migration
             $table->date('exercice_clos')->nullable(); // valeurs possibles : 'user', 'consultant', 'admin', etc.
         });
     }
-    
+
     public function down()
     {
         Schema::table('chantier', function (Blueprint $table) {
             $table->dropColumn('exercice_clos');
         });
     }
-    
 };

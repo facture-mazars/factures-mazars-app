@@ -15,17 +15,14 @@ return new class extends Migration
     {
         Schema::table('encaissement', function (Blueprint $table) {
 
-
             $table->unsignedBigInteger('id_cheque_banque')->nullable(); // Ajoutez cette ligne
-
-          
 
             $table->foreign('id_cheque_banque')->references('id_cheque_banque')->on('cheque_banque');
 
-              // Supprimer des colonnes existantes
-              $table->dropColumn('banque');
-              $table->dropColumn('ref_encaissement');
-         
+            // Supprimer des colonnes existantes
+            $table->dropColumn('banque');
+            $table->dropColumn('ref_encaissement');
+
         });
     }
 
@@ -41,7 +38,7 @@ return new class extends Migration
             $table->boolean('banque')->nullable();
             $table->boolean('ref_encaissement')->nullable();
             $table->dropColumn('id_cheque_banque')->nullable();
-     
+
         });
     }
 };

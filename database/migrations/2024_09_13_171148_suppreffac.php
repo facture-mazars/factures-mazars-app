@@ -15,10 +15,9 @@ return new class extends Migration
     {
         Schema::table('facture', function (Blueprint $table) {
 
+            // Supprimer des colonnes existantes
+            $table->dropColumn('ref_facture_emise');
 
-              // Supprimer des colonnes existantes
-              $table->dropColumn('ref_facture_emise');
-             
         });
     }
 
@@ -32,9 +31,7 @@ return new class extends Migration
         Schema::table('chantier', function (Blueprint $table) {
             // Réajouter les colonnes supprimées
             $table->string('ref_facture_emise')->nullable();
-      
-         
-     
+
         });
     }
 };

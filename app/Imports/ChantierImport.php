@@ -2,23 +2,21 @@
 
 namespace App\Imports;
 
-
-use App\Models\GetDate;
-use App\Models\Client;
-use App\Models\SousTypeMission;
-use App\Models\Monnaie;
-use Illuminate\Support\Facades\Log; 
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use App\Models\chantier;
+use App\Models\Client;
+use App\Models\GetDate;
+use App\Models\Monnaie;
+use App\Models\SousTypeMission;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class ChantierImport implements ToModel, WithHeadingRow
 {
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+     * @param  array  $row
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
     protected $sous;
 
     public function __construct()
@@ -26,43 +24,40 @@ class ChantierImport implements ToModel, WithHeadingRow
         // Préchargement des sous-types de mission pour correspondance
         $this->sous = SousTypeMission::all()->pluck('id_sous_type_mission', 'types')->toArray();
     }
-    
+
     public function model(array $row)
     {
         try {
             Log::info('Traitement de la ligne Excel', ['row' => $row]);
-    
-            $id_sous_mission = !empty($row['types']) ? ($this->sous[$row['types']] ?? null) : null;
+
+            $id_sous_mission = ! empty($row['types']) ? ($this->sous[$row['types']] ?? null) : null;
             Log::info('Sous-type de mission trouvé', ['sous_type_mission' => $id_sous_mission ?: 'Non trouvé']);
-    
+
             $clientId = $this->getClientIdByCode($row['code_client'] ?? null);
             Log::info('Code client', ['code_client' => $row['code_client'] ?? null]);
-    
-            if (!$clientId) {
+
+            if (! $clientId) {
                 Log::warning('Client introuvable', ['code_client' => $row['code_client']]);
+
                 return null; // Ignorer l'insertion pour cette ligne si le client est introuvable
             }
 
-          
-            $etat = isset($row['etat']) ? (bool)$row['etat'] : false; // Assurez-vous que c'est un booléen
-             // Ajuster la valeur de dom_export
-        $domExportValue = ($row['dom_export'] ?? null) === 'O' ? 'Domestique' : 'Export';
+            $etat = isset($row['etat']) ? (bool) $row['etat'] : false; // Assurez-vous que c'est un booléen
+            // Ajuster la valeur de dom_export
+            $domExportValue = ($row['dom_export'] ?? null) === 'O' ? 'Domestique' : 'Export';
 
-        $typeMissionId = null;
-        if ($id_sous_mission) {
-            $typeMissionId = SousTypeMission::where('id_sous_type_mission', $id_sous_mission)->value('id_type_mission');
-        }
+            $typeMissionId = null;
+            if ($id_sous_mission) {
+                $typeMissionId = SousTypeMission::where('id_sous_type_mission', $id_sous_mission)->value('id_type_mission');
+            }
 
+            // Si le type ou sous-type est introuvable, ajouter dans ancien_mission
+            $ancienMission = null;
+            if (! $typeMissionId && ! $id_sous_mission) {
+                $ancienMission = $row['types'];
+                Log::info('Type de mission et sous-type introuvables, ajout dans ancien_mission', ['ancien_mission' => $ancienMission]);
+            }
 
-
-    // Si le type ou sous-type est introuvable, ajouter dans ancien_mission
-    $ancienMission = null;
-    if (!$typeMissionId && !$id_sous_mission) {
-        $ancienMission = $row['types'];
-        Log::info('Type de mission et sous-type introuvables, ajout dans ancien_mission', ['ancien_mission' => $ancienMission]);
-    }
-
-    
             $chantier = new Chantier([
                 'id_client' => $clientId,
                 'id_sous_type_mission' => $id_sous_mission,
@@ -92,11 +87,11 @@ class ChantierImport implements ToModel, WithHeadingRow
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
-    
-            if (!$chantier->save()) {
+
+            if (! $chantier->save()) {
                 Log::error('Erreur lors de la sauvegarde du chantier', ['chantier' => $chantier->toArray()]);
             }
-    
+
             // Insertion dans la table 'get_date'
             $getDate = new GetDate([
                 'id_chantier' => $chantier->id_chantier,
@@ -107,11 +102,11 @@ class ChantierImport implements ToModel, WithHeadingRow
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
-    
-            if (!$getDate->save()) {
+
+            if (! $getDate->save()) {
                 Log::error('Erreur lors de la sauvegarde des dates du chantier', ['get_date' => $getDate->toArray()]);
             }
-    
+
         } catch (\Exception $e) {
             Log::error('Erreur lors de l\'importation de la ligne', [
                 'error' => $e->getMessage(),
@@ -121,25 +116,25 @@ class ChantierImport implements ToModel, WithHeadingRow
             ]);
         }
     }
-    
-    
+
     // Fonction pour convertir une chaîne de date en format date SQL ou retourner NULL
-// Ajoutez cette méthode dans votre classe pour gérer la normalisation des dates
-protected function parseDate($dateValue) {
-    if (is_numeric($dateValue)) {
-        // Conversion du nombre Excel en timestamp PHP
-        return \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($dateValue)->format('Y-m-d H:i:s');
+    // Ajoutez cette méthode dans votre classe pour gérer la normalisation des dates
+    protected function parseDate($dateValue)
+    {
+        if (is_numeric($dateValue)) {
+            // Conversion du nombre Excel en timestamp PHP
+            return \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($dateValue)->format('Y-m-d H:i:s');
+        }
+
+        // Pour les dates au format texte
+        return $dateValue ? \Carbon\Carbon::createFromFormat('d/m/Y', $dateValue)->format('Y-m-d H:i:s') : null;
+
     }
 
-    // Pour les dates au format texte
-    return $dateValue ? \Carbon\Carbon::createFromFormat('d/m/Y', $dateValue)->format('Y-m-d H:i:s') : null;
-
-}
-    
     private function parseDateDebutExercice($date)
-{
-    return !empty($date) ? \Carbon\Carbon::createFromFormat('d-M-y', $date)->format('Y-m-d') : null;
-}
+    {
+        return ! empty($date) ? \Carbon\Carbon::createFromFormat('d-M-y', $date)->format('Y-m-d') : null;
+    }
 
     // Fonction pour convertir un champ 'O'/'N' en booléen ou retourner NULL
     private function parseBoolean($value)
@@ -147,9 +142,10 @@ protected function parseDate($dateValue) {
         if (is_null($value)) {
             return null; // ou une valeur par défaut
         }
+
         return strtolower($value) === 'o' || $value === true;
     }
-    
+
     // Récupérer l'ID du client via son code client ou retourner NULL
     private function getClientIdByCode($code_client)
     {
@@ -157,9 +153,10 @@ protected function parseDate($dateValue) {
             return null;
         }
         $client = Client::where('code_client', $code_client)->first();
+
         return $client ? $client->id_client : null;
     }
-    
+
     // Récupérer l'ID du type de mission via son nom ou retourner NULL
     private function getMissionTypeId($type_mission)
     {
@@ -167,9 +164,10 @@ protected function parseDate($dateValue) {
             return null;
         }
         $missionType = SousTypeMission::where('nom_type_mission', $type_mission)->first();
+
         return $missionType ? $missionType->id_type_mission : null;
     }
-    
+
     // Récupérer l'ID d'une monnaie par défaut ou retourner NULL
     private function getMonnaieId($monnaie)
     {
@@ -177,18 +175,17 @@ protected function parseDate($dateValue) {
             return null;
         }
         $monnaie = Monnaie::where('nom_monnaie', $monnaie)->first();
+
         return $monnaie ? $monnaie->id_monnaie : null;
     }
 
-
     private function getIdByField($model, $field, $value)
-{
-    if (empty($value)) {
-        return null;
-    }
-    $record = $model::where($field, $value)->first();
-    return $record ? $record->id : null;
-}
+    {
+        if (empty($value)) {
+            return null;
+        }
+        $record = $model::where($field, $value)->first();
 
-    
+        return $record ? $record->id : null;
+    }
 }

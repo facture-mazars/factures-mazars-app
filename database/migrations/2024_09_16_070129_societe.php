@@ -23,11 +23,8 @@ return new class extends Migration
             $table->string('n_if')->nullable();
             $table->string('n_cif')->nullable();
 
-
             $table->timestamps();
 
-         
-           
         });
     }
 

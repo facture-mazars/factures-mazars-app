@@ -15,10 +15,9 @@ return new class extends Migration
     {
         Schema::table('facture', function (Blueprint $table) {
 
+            // Supprimer des colonnes existantes
+            $table->dropColumn('lib_facture');
 
-              // Supprimer des colonnes existantes
-              $table->dropColumn('lib_facture');
-             
         });
     }
 
@@ -32,9 +31,7 @@ return new class extends Migration
         Schema::table('facture', function (Blueprint $table) {
             // Réajouter les colonnes supprimées
             $table->string('lib_facture')->nullable();
-      
-         
-     
+
         });
     }
 };

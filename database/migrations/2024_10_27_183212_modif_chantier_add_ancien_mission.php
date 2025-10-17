@@ -15,11 +15,8 @@ return new class extends Migration
     {
         Schema::table('chantier', function (Blueprint $table) {
 
-         
-          
+            $table->string('ancien_mission')->nullable();
 
-              $table->string('ancien_mission')->nullable(); 
-             
         });
     }
 
@@ -30,11 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('chantier', function (Blueprint $table) {
-         
-      
-         
-     
-        });
+        Schema::table('chantier', function (Blueprint $table) {});
     }
 };

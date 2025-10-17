@@ -3,7 +3,6 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\URL;
@@ -35,16 +34,16 @@ class VerifyEmail extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-         // Génère une URL sans expiration pour la vérification de l'e-mail
-         $verificationUrl = $this->verificationUrl($notifiable);
+        // Génère une URL sans expiration pour la vérification de l'e-mail
+        $verificationUrl = $this->verificationUrl($notifiable);
 
-      return (new MailMessage)
+        return (new MailMessage)
             ->subject('Vérifiez votre adresse e-mail')
-            ->greeting('Bonjour ' . $notifiable->nom . ',')
+            ->greeting('Bonjour '.$notifiable->nom.',')
             ->line('Merci de vous être inscrit ! Veuillez cliquer sur le bouton ci-dessous pour vérifier votre adresse e-mail.')
             ->action('Vérifier mon adresse e-mail', $verificationUrl)
             ->line('Si vous n\'avez pas créé de compte, aucune action supplémentaire n\'est requise.')
-            ->salutation('Cordialement, L\'équipe de ' . config('app.name'));
+            ->salutation('Cordialement, L\'équipe de '.config('app.name'));
     }
 
     /**

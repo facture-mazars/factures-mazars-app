@@ -16,12 +16,9 @@ return new class extends Migration
             $table->string('numero_facture_annule')->nullable(); // valeurs possibles : 'user', 'consultant', 'admin', etc.
         });
     }
-    
+
     public function down()
     {
-        Schema::table('tranche_facture', function (Blueprint $table) {
-     
-        });
+        Schema::table('tranche_facture', function (Blueprint $table) {});
     }
-    
 };

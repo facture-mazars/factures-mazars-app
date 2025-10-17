@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-   /**
+    /**
      * Appliquer les modifications à la table.
      *
      * @return void
@@ -25,14 +25,13 @@ return new class extends Migration
             $table->integer('mandat');
             // Ajoute d'autres colonnes selon tes besoins
 
+            // Supprimer des colonnes existantes
+            $table->dropColumn('code_mission');
 
-              // Supprimer des colonnes existantes
-              $table->dropColumn('code_mission');
-            
         });
     }
 
- /**
+    /**
      * Annuler les modifications apportées à la table.
      *
      * @return void
@@ -44,13 +43,12 @@ return new class extends Migration
             $table->renameColumn('id_chantier', 'id_mission');
 
             // Supprimer les colonnes ajoutées
-            $table->dropColumn(['reference_chantier', 'date_debut_intervention','date_fin_intervention','date_initialisation','mandat']);
+            $table->dropColumn(['reference_chantier', 'date_debut_intervention', 'date_fin_intervention', 'date_initialisation', 'mandat']);
             // Supprime d'autres colonnes si nécessaire
 
+            // Restaurer les colonnes supprimées (en précisant leur type original)
+            $table->string('code_mission'); // Exemple de type, ajuste selon la définition originale
 
-                 // Restaurer les colonnes supprimées (en précisant leur type original)
-                 $table->string('code_mission'); // Exemple de type, ajuste selon la définition originale
-               
         });
     }
 };

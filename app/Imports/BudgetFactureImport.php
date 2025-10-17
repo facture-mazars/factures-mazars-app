@@ -1,13 +1,12 @@
 <?php
 
-
 namespace App\Imports;
 
-use App\Models\Equipe;
 use App\Models\Budget;
+use App\Models\Equipe;
 use App\Models\Facture;
-use App\Models\TrancheFacture;
 use App\Models\ListePersonnel;
+use App\Models\TrancheFacture;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\DB as DBFacade;
@@ -25,14 +24,14 @@ class BudgetFactureImport implements ToCollection
             foreach ($budgetRows as $budget) {
                 $idChantier = $this->getIdChantier($budget['code_chantier']);
 
-                if (!$idChantier) {
-                    throw new \Exception("Code chantier introuvable : " . $budget['code_chantier']);
+                if (! $idChantier) {
+                    throw new \Exception('Code chantier introuvable : '.$budget['code_chantier']);
                 }
 
                 $trigramme = $this->extractTrigramme($budget['code_chantier']);
                 $personnel = ListePersonnel::where('trigramme', $trigramme)->first();
 
-                if (!$personnel) {
+                if (! $personnel) {
                     // Créer une équipe par défaut si nécessaire
                     $personnel = ListePersonnel::create([
                         'nom' => 'Inconnu',
@@ -61,8 +60,8 @@ class BudgetFactureImport implements ToCollection
                 $idChantier = $this->getIdChantier($facture['code_chantier']);
                 $trigramme = $this->extractTrigramme($facture['numero_facture']);
 
-                if (!$idChantier) {
-                    throw new \Exception("Code chantier introuvable : " . $facture['code_chantier']);
+                if (! $idChantier) {
+                    throw new \Exception('Code chantier introuvable : '.$facture['code_chantier']);
                 }
 
                 $factureModel = Facture::create([
@@ -106,6 +105,7 @@ class BudgetFactureImport implements ToCollection
     private function extractTrigramme($input)
     {
         preg_match('/n°([A-Z]{3})/', $input, $matches);
+
         return $matches[1] ?? null;
     }
 
@@ -121,6 +121,3 @@ class BudgetFactureImport implements ToCollection
         }
     }
 }
-
-
-

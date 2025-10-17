@@ -15,12 +15,10 @@ return new class extends Migration
     {
         Schema::table('tranche_facture', function (Blueprint $table) {
 
-         
-              
             $table->unsignedBigInteger('id_pourcentage_debours')->nullable()->constrained();
 
-              $table->foreign('id_pourcentage_debours')->references('id_taux')->on('taux');
-             
+            $table->foreign('id_pourcentage_debours')->references('id_taux')->on('taux');
+
         });
     }
 
@@ -33,10 +31,7 @@ return new class extends Migration
     {
         Schema::table('tranche_facture', function (Blueprint $table) {
             // Réajouter les colonnes supprimées
-           
-      
-         
-     
+
         });
     }
 };

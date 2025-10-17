@@ -2,19 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
 use App\Models\Users;
 use App\Rules\NumeroMatricule;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\VerificationCode;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    public function register() 
+    public function register()
     {
         return view('auth/register');
     }
@@ -25,10 +22,9 @@ class AuthController extends Controller
             'nom' => 'required',
             'numero' => ['required', new NumeroMatricule],
             'mdp' => 'required|confirmed',
- 
+
         ])->validate();
 
-       
         $user = Users::create([
             'nom' => $request->nom,
             'numero' => $request->numero,
@@ -38,15 +34,13 @@ class AuthController extends Controller
 
         ]);
 
-     
         $user->save();
 
-
-
-        return redirect('/');
+        return redirect()->route('login')->with('success', 'Compte consultant créé avec succès. Vous pouvez maintenant vous connecter.');
     }
 
-    public function login() {
+    public function login()
+    {
         return view('auth/login');
     }
 
@@ -61,15 +55,15 @@ class AuthController extends Controller
 
         if ($utilisateur && Hash::check($request->mdp, $utilisateur->mdp)) {
             Auth::login($utilisateur);
-           // Redirection basée sur le rôle
-                if ($utilisateur->role === 'Consultant') {
-                    return redirect()->intended('/consultant/listeClient'); // Page d'accueil pour consultant
-                } elseif ($utilisateur->role === 'Admin') {
-                    return redirect()->intended('dashboard'); // Page de profil pour admin
-                }
+            // Redirection basée sur le rôle
+            if ($utilisateur->role === 'Consultant') {
+                return redirect()->intended('/consultant/listeClient'); // Page d'accueil pour consultant
+            } elseif ($utilisateur->role === 'Admin') {
+                return redirect()->intended('dashboard'); // Page de profil pour admin
+            }
 
-                 // Redirection par défaut si le rôle ne correspond pas
-        return redirect()->intended('login');
+            // Redirection par défaut si le rôle ne correspond pas
+            return redirect()->intended('login');
         }
 
         return back()->withErrors([
@@ -80,12 +74,9 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         Auth::guard('web')->logout();
-  
+
         $request->session()->invalidate();
-  
+
         return redirect('/');
     }
-
- 
-
 }

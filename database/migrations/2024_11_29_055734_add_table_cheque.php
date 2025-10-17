@@ -14,9 +14,7 @@ return new class extends Migration
         Schema::create('cheque', function (Blueprint $table) {
             $table->id('id_cheque');
             $table->string('nom')->nullable();
-        
-             
-           
+
         });
     }
 
@@ -30,4 +28,3 @@ return new class extends Migration
         Schema::dropIfExists('cheque');
     }
 };
-

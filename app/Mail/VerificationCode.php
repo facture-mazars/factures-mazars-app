@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -16,8 +15,6 @@ class VerificationCode extends Mailable
     /**
      * Create a new message instance.
      */
-  
-
     public $code;
 
     public function __construct($code)
@@ -28,7 +25,7 @@ class VerificationCode extends Mailable
     public function build()
     {
         return $this->subject('Code de vérification de votre compte')
-        ->view('emails.verification-code');
+            ->view('emails.verification-code');
     }
 
     /**
@@ -44,7 +41,6 @@ class VerificationCode extends Mailable
     /**
      * Get the message content definition.
      */
-  
 
     /**
      * Get the attachments for the message.

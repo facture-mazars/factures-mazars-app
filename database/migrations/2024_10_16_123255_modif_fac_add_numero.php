@@ -15,12 +15,11 @@ return new class extends Migration
     {
         Schema::table('tranche_facture', function (Blueprint $table) {
 
-         
-              // Supprimer des colonnes existantes
-              $table->dropColumn('numero_facture');
+            // Supprimer des colonnes existantes
+            $table->dropColumn('numero_facture');
 
-              $table->string('numero_facture')->nullable(); 
-             
+            $table->string('numero_facture')->nullable();
+
         });
     }
 
@@ -34,9 +33,7 @@ return new class extends Migration
         Schema::table('tranche_facture', function (Blueprint $table) {
             // Réajouter les colonnes supprimées
             $table->string('numero_facture')->nullable();
-      
-         
-     
+
         });
     }
 };

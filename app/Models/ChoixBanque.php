@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,7 +11,8 @@ class ChoixBanque extends Model
 
     protected $table = 'choix_banque';
 
-    protected $primaryKey = 'id_choix_banque'; 
+    protected $primaryKey = 'id_choix_banque';
+
     protected $fillable = ['id_facture', 'id_banque'];
 
     public function banque()

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Partner extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'partner';
 
     protected $fillable = [
@@ -18,9 +18,6 @@ class Partner extends Model
     public $timestamps = false;
 
     protected $primaryKey = 'id_partner'; // Nom de la clé primaire
-
-
-
 
     public function contrat()
     {

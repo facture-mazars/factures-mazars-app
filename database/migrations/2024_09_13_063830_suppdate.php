@@ -15,13 +15,12 @@ return new class extends Migration
     {
         Schema::table('chantier', function (Blueprint $table) {
 
+            // Supprimer des colonnes existantes
+            $table->dropColumn('reference_chantier');
+            $table->dropColumn('date_initialisation');
+            $table->dropColumn('date_debut_intervention');
+            $table->dropColumn('date_fin_intervention');
 
-              // Supprimer des colonnes existantes
-              $table->dropColumn('reference_chantier');
-              $table->dropColumn('date_initialisation');
-              $table->dropColumn('date_debut_intervention');
-              $table->dropColumn('date_fin_intervention');
-         
         });
     }
 
@@ -38,8 +37,7 @@ return new class extends Migration
             $table->date('date_initialisation')->nullable();
             $table->date('date_debut_intervention')->nullable();
             $table->date('date_fin_intervention')->nullable();
-         
-     
+
         });
     }
 };

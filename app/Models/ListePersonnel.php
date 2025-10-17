@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,6 +10,7 @@ class ListePersonnel extends Model
     use HasFactory;
 
     protected $table = 'liste_personnel';
+
     protected $primaryKey = 'id_liste_personnel';
 
     protected $fillable = [

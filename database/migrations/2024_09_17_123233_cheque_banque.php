@@ -16,14 +16,11 @@ return new class extends Migration
             $table->unsignedBigInteger('id_mode_encaissement')->nullable();
             $table->string('types')->nullable();
             $table->string('compte')->nullable();
-          
-
 
             $table->timestamps();
 
             $table->foreign('id_mode_encaissement')->references('id_mode_encaissement')->on('mode_encaissement');
-         
-           
+
         });
     }
 

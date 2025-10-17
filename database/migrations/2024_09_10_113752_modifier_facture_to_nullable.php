@@ -15,14 +15,12 @@ return new class extends Migration
     {
         Schema::table('facture', function (Blueprint $table) {
             // Modification des colonnes existantes pour les rendre nullable
-          
+
             $table->string('ref_facture_emise')->nullable()->change();
             $table->string('lib_facture')->nullable()->change();
             $table->float('debours_decaissable')->nullable()->change();
             $table->float('debours_non_decaissable')->nullable()->change();
-       
 
-       
         });
     }
 
@@ -34,7 +32,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('chantier', function (Blueprint $table) {
-          
+
             $table->string('ref_facture_emise')->nullable(false)->change();
             $table->string('lib_facture')->nullable(false)->change();
             $table->float('debours_decaissable')->nullable(false)->change();

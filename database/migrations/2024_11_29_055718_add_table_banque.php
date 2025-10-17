@@ -16,8 +16,7 @@ return new class extends Migration
             $table->string('type_banque')->nullable();
             $table->string('compte')->nullable();
             $table->string('paiement')->nullable();
-             
-           
+
         });
     }
 
@@ -31,4 +30,3 @@ return new class extends Migration
         Schema::dropIfExists('banque');
     }
 };
-

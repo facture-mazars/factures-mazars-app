@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Banques extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'banque';
 
     protected $fillable = [
@@ -25,10 +25,8 @@ class Banques extends Model
 
     protected $primaryKey = 'id_banque'; // Nom de la clé primaire
 
-
     public function encaissement()
     {
         return $this->hasMany(Encaissement::class, 'banque', 'id_banque');
     }
-
 }

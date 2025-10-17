@@ -15,7 +15,6 @@ return new class extends Migration
             $table->string('objet')->nullable();  // false = non encaissée, true = encaissée
         });
     }
-    
 
     /**
      * Reverse the migrations.
