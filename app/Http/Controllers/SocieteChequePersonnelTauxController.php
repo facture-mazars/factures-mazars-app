@@ -120,7 +120,9 @@ class SocieteChequePersonnelTauxController extends Controller
 
     public function indexPersonnel()
     {
-        $personnels = ListePersonnel::where('actif', true)->get();
+        $personnels = ListePersonnel::where('actif', true)
+            ->orderBy('id_liste_personnel', 'asc')
+            ->get();
 
         return view('ad.liste_perso', compact('personnels'));
     }

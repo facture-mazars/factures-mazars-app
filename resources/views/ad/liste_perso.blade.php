@@ -12,8 +12,15 @@
     </div>
 </div>
 
-
-
+<div class="row">
+    <div class="col-12">
+        <div class="alert alert-info" style="background: #dbeafe; color: #1e40af; border-color: #3b82f6; padding: 15px; border-radius: 8px; margin-bottom: 25px;">
+            <i class="lni lni-information"></i>
+            <strong>Information :</strong> Cette liste de personnel constitue l'équipe disponible lors de l'insertion d'une équipe pour un chantier.
+            Assurez-vous que tous les membres sont correctement enregistrés avec leur grade.
+        </div>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-lg-12">

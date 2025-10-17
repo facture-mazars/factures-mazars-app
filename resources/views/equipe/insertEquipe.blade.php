@@ -20,7 +20,17 @@
                 <h2>Equipe pour {{$chantier->client->nom_client }} : {{ $chantier->client->code_client }} - {{ $chantier->sousTypeMission->types ?? '-' }}</h2>
             </div>
         </div>
-      
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="alert alert-info" style="background: #dbeafe; color: #1e40af; border-color: #3b82f6; padding: 15px; border-radius: 8px; margin-bottom: 25px;">
+            <i class="lni lni-information"></i>
+            <strong>Information :</strong> Le personnel affiché ci-dessous provient de la liste du personnel que vous avez enregistré.
+            Cette liste constitue l'équipe disponible pour ce chantier. Sélectionnez les membres par grade.
+        </div>
     </div>
 </div>
 

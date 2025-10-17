@@ -30,10 +30,12 @@
       
         <div class="title d-flex flex-wrap justify-content-between align-items-center">
                   <div class="left">
-                   
+
                   </div>
                   <div class="right">
-                  <a href="{{ route('personnel.index') }}" class="btn btn-secondary">Voir liste</a>
+                  <a href="{{ route('personnel.index') }}" class="main-btn primary-btn btn-hover">
+                    <i class="lni lni-list"></i> Voir la liste
+                  </a>
                     <!-- end select -->
                   </div>
                 </div>
