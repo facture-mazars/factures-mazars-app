@@ -9,6 +9,13 @@
                 <h2>Liste du Personnel</h2>
             </div>
         </div>
+        <div class="col-md-6">
+            <div class="breadcrumb-wrapper">
+                <a href="{{ route('enregistrement.create') }}" class="main-btn primary-btn btn-hover">
+                    <i class="lni lni-plus"></i> Ajouter un personnel
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 

@@ -25,7 +25,34 @@ th, td {
     padding: 5px;
 }
 
+/* Supprimer la bordure bleue sous l'entête du tableau */
+.table-wrapper .table thead,
+.card-style .table thead,
+table thead {
+    border-bottom: none !important;
+    border-top: none !important;
+    border-color: #000 !important;
+}
 
+.table-wrapper .table thead tr,
+.card-style .table thead tr,
+table thead tr {
+    border-bottom: none !important;
+    border-top: none !important;
+    border-color: #000 !important;
+}
+
+.table-wrapper .table thead th,
+.card-style .table thead th,
+table thead th {
+    border-bottom: 0.1px solid #000 !important;
+    border-top: 0.1px solid #000 !important;
+    border-color: #000 !important;
+}
+
+.table > :not(:last-child) > :last-child > * {
+    border-bottom-color: #000 !important;
+}
 
 tbody tr:nth-child(even) {
     background-color: #f2f2f2;
@@ -88,7 +115,7 @@ tbody tr:hover {
 
     </div>
     </div>
-    <a href="{{ route('barometre') }}" title="Réinitialiser" style="display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: #dc3545; border-radius: 5px; color: white; text-decoration: none; transition: background-color 0.3s; margin-top: -30px;;">
+    <a href="{{ route('barometre') }}" title="Réinitialiser" style="display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: #dc3545; border-radius: 5px; color: white !important; text-decoration: none; transition: background-color 0.3s; margin-top: -30px;;">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
             <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
