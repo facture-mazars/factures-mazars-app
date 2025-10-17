@@ -60,6 +60,7 @@ SELECT 'personnel', COUNT(*) FROM personnel;
 - societe: **1**
 - liste_personnel: **71**
 - taux: **3**
+- banques: **7** (données permanentes - NE PAS SUPPRIMER)
 
 ## ÉTAPE 2 : Débuter les tests
 
@@ -107,8 +108,9 @@ DELETE FROM client WHERE created_at >= '2025-01-17 20:30:00';
 -- 10. Supprimer les utilisateurs créés pendant les tests (conserver les 3 existants)
 DELETE FROM users WHERE created_at >= '2025-01-17 20:30:00';
 
--- 11. NE PAS toucher aux configurations (type_mission, sous_type_mission, societe, liste_personnel, taux)
--- Elles existaient déjà et doivent être conservées
+-- 11. NE PAS toucher aux configurations (type_mission, sous_type_mission, societe, liste_personnel, taux, banques)
+-- Ces données existaient déjà et doivent être conservées
+-- IMPORTANT : La table banques contient 7 banques permanentes à NE PAS supprimer
 ```
 
 ## Vérification après nettoyage
@@ -147,6 +149,7 @@ ORDER BY table_name;
 - societe: **1**
 - liste_personnel: **71**
 - taux: **3**
+- banques: **7**
 
 ---
 
