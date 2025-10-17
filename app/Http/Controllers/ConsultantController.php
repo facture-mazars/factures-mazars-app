@@ -59,7 +59,7 @@ class ConsultantController extends Controller
             $totals[$tranche->id_tranche_facture] = $total;
         }
 
-        return view('Consultant.listeTrancheFacture', compact('trancheFacture', 'totals'));
+        return view('consultant.listeTrancheFacture', compact('trancheFacture', 'totals'));
 
     }
 

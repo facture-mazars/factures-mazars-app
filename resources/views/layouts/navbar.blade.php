@@ -57,8 +57,8 @@
              
                 <!-- profile start -->
                 <div class="profile-box ml-15 d-flex align-items-center">
-                  <button class="dropdown-toggle bg-transparent border-0" type="button" id="profile"
-                    data-bs-toggle="dropdown" aria-expanded="false">
+                  <button class="dropdown-toggle bg-transparent border-0 d-flex align-items-center" type="button" id="profile"
+                    data-bs-toggle="dropdown" aria-expanded="false" style="gap: 10px;">
                     <div class="profile-info">
                       <div class="info">
                         <div class="image">
@@ -73,26 +73,23 @@
                         </div>
                       </div>
                     </div>
+                    <i class="lni lni-chevron-down" style="font-size: 18px;"></i>
                   </button>
                   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profile">
                     <li>
-                      <div class="author-info flex items-center !p-1">
-
-                        <div class="content">
-                         <a href="{{ route('enregistrement.create')}}"><i class="lni lni-user"></i> Admin  </a> <br>
-                          <a class="text-black/40 hover:text-black text-xs" href=" {{ route('logout') }} ">
-                            <i class="lni lni-exit"></i>  Se deconnecter
-                         </a>
-                        </div>
-                      </div>
+                      <a href="{{ route('enregistrement.create') }}" class="dropdown-item">
+                        <i class="lni lni-cog"></i> Paramètres
+                      </a>
                     </li>
-
+                    <li>
+                      <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                      <a href="{{ route('logout') }}" class="dropdown-item">
+                        <i class="lni lni-exit"></i> Déconnexion
+                      </a>
+                    </li>
                   </ul>
-
-                  <!-- Bouton de déconnexion visible -->
-                  <a href="{{ route('logout') }}" class="ms-3">
-                    <i class="lni lni-exit"></i> Déconnexion
-                  </a>
                 </div>
                 <!-- profile end -->
               </div>

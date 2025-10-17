@@ -14,8 +14,18 @@
     <div class="row align-items-center">
         <div class="col-md-6">
             <div class="title">
-                <h2>Modifications</h2>
+                <h2>Paramètres</h2>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="alert alert-info" style="background: #dbeafe; color: #1e40af; border-color: #3b82f6; padding: 15px; border-radius: 8px; margin-bottom: 25px;">
+            <i class="lni lni-cog"></i>
+            <strong>Paramètres de l'application</strong><br>
+            Cette page vous permet de modifier les paramètres généraux de l'application : informations de la société, personnel, modes d'encaissement (chèques et banques), et taux de conversion.
         </div>
     </div>
 </div>

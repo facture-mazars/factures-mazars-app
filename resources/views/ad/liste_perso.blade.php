@@ -9,6 +9,7 @@
                 <h2>Liste du Personnel</h2>
             </div>
         </div>
+        @if (Auth::user()->role === 'Admin')
         <div class="col-md-6">
             <div class="breadcrumb-wrapper">
                 <a href="{{ route('enregistrement.create') }}" class="main-btn primary-btn btn-hover">
@@ -16,6 +17,7 @@
                 </a>
             </div>
         </div>
+        @endif
     </div>
 </div>
 
@@ -40,9 +42,11 @@
                             <th>Prénom</th>
                             <th>Grade</th>
                             <th>Matricule</th>
-                        
+
+                            @if (Auth::user()->role === 'Admin')
                             <th>Modifier</th>
                             <th>Supprimer</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -52,7 +56,8 @@
                                 <td>{{ $personnel->prenom }}</td>
                                 <td>{{ $personnel->grade->types }}</td>
                                 <td>{{ $personnel->matricule }}</td>
-                           
+
+                                @if (Auth::user()->role === 'Admin')
                                 <td>
                                 <a href="{{ route('pers.edit', $personnel->id_liste_personnel) }}" class="btn btn-primary">   <i class="lni lni-pencil"></i></a>
                                 </td>
@@ -68,6 +73,7 @@
                                     </form>
 
                               </td>
+                              @endif
                             </tr>
                         @endforeach
                     </tbody>
