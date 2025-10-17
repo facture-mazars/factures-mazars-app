@@ -47,6 +47,17 @@ class BudgetController extends Controller
 
     public function store(Request $request)
     {
+        // Convertir les virgules en points pour les champs numériques
+        $budgetData = $request->input('budget');
+        foreach ($budgetData as $id_equipe => $budget) {
+            if (isset($budget['nb_jour_homme'])) {
+                $budgetData[$id_equipe]['nb_jour_homme'] = str_replace([' ', ','], ['', '.'], $budget['nb_jour_homme']);
+            }
+            if (isset($budget['taux'])) {
+                $budgetData[$id_equipe]['taux'] = str_replace([' ', ','], ['', '.'], $budget['taux']);
+            }
+        }
+        $request->merge(['budget' => $budgetData]);
 
         // Validation des données pour interdire les valeurs négatives
         $request->validate([
@@ -158,6 +169,18 @@ class BudgetController extends Controller
 
     public function update(Request $request, $id_chantier)
     {
+        // Convertir les virgules en points pour les champs numériques
+        $budgetData = $request->input('budget');
+        foreach ($budgetData as $id_equipe => $budget) {
+            if (isset($budget['nb_jour_homme'])) {
+                $budgetData[$id_equipe]['nb_jour_homme'] = str_replace([' ', ','], ['', '.'], $budget['nb_jour_homme']);
+            }
+            if (isset($budget['taux'])) {
+                $budgetData[$id_equipe]['taux'] = str_replace([' ', ','], ['', '.'], $budget['taux']);
+            }
+        }
+        $request->merge(['budget' => $budgetData]);
+
         // Validation des données
         $request->validate([
             'id_chantier' => 'required|exists:chantier,id_chantier', // Rendu obligatoire pour l'existence d'un chantier
