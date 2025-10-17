@@ -8,13 +8,15 @@ Ce fichier permet de supprimer UNIQUEMENT les données créées pendant les test
 
 Avant de commencer vos tests, notez combien de données existent déjà :
 
-### Connexion à la base de données
+### Connexion à la base de données en production
 
-Via l'interface Render :
-1. Aller sur https://dashboard.render.com
-2. Sélectionner votre base de données PostgreSQL
-3. Cliquer sur "Connect" → "PSQL Command"
-4. Copier la commande et l'exécuter dans votre terminal
+Dans votre terminal, exécutez cette commande :
+
+```bash
+PGPASSWORD='C97uavXT2ipv6Nq14Kw9pehfriq9PJxE' psql -h dpg-d3oetr3ipnbc73fumk10-a.oregon-postgres.render.com -U factures_mazars_user -d factures_mazars
+```
+
+Une fois connecté, vous pouvez exécuter les commandes SQL ci-dessous.
 
 ### Compter les données existantes
 

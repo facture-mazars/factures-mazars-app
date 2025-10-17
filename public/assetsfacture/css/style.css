@@ -206,6 +206,11 @@ table th{
 
 .btn-download {
     background: #3965e3;
+    color: #ffffff !important;
+}
+
+.btn-download:hover {
+    color: #ffffff !important;
 }
 
 .btn-download:after {
