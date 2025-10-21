@@ -40,15 +40,14 @@ SELECT 'equipe', COUNT(*) FROM equipe
 UNION ALL
 SELECT 'type_mission', COUNT(*) FROM type_mission
 UNION ALL
-SELECT 'sous_mission', COUNT(*) FROM sous_mission
+SELECT 'sous_type_mission', COUNT(*) FROM sous_type_mission
 UNION ALL
-SELECT 'societes', COUNT(*) FROM societes
+SELECT 'societe', COUNT(*) FROM societe
 UNION ALL
-SELECT 'personnel', COUNT(*) FROM personnel;
+SELECT 'liste_personnel', COUNT(*) FROM liste_personnel;
 ```
 
 **✅ Données AVANT les tests (DATE: 2025-01-17 20:30) :**
-- users: **3**
 - client: **0**
 - chantier: **0**
 - facture: **0**
@@ -78,37 +77,44 @@ Notez bien cette date/heure, on va supprimer tout ce qui a été créé APRÈS.
 
 ```sql
 -- 1. Supprimer les encaissements créés pendant les tests
-DELETE FROM encaissement WHERE created_at >= '2025-01-17 20:30:00';
+    DELETE FROM encaissement WHERE created_at >= '2025-01-17 20:30:00';
 
--- 2. Supprimer les tranches de facture créées pendant les tests
-DELETE FROM tranche_facture WHERE created_at >= '2025-01-17 20:30:00';
+  -- 2. Supprimer facture_a_encaisser
+  DELETE FROM facture_a_encaisser WHERE created_at >= '2025-01-17 20:30:00';
 
--- 3. Supprimer les factures créées pendant les tests (et la table pivot)
-DELETE FROM facture_budget WHERE id_facture IN (
-    SELECT id_facture FROM facture WHERE created_at >= '2025-01-17 20:30:00'
-);
-DELETE FROM facture WHERE created_at >= '2025-01-17 20:30:00';
+  -- 3. Supprimer les tranches de facture
+  DELETE FROM tranche_facture WHERE created_at >= '2025-01-17 20:30:00';
 
--- 4. Supprimer les budgets créés pendant les tests
-DELETE FROM budget WHERE created_at >= '2025-01-17 20:30:00';
+  -- 4. Supprimer la table pivot facture_budget
+  DELETE FROM facture_budget WHERE id_facture IN (
+      SELECT id_facture FROM facture WHERE created_at >= '2025-01-17 20:30:00'
+  );
 
--- 5. Supprimer les équipes créées pendant les tests
-DELETE FROM equipe WHERE created_at >= '2025-01-17 20:30:00';
+  -- 5. Supprimer les factures
+  DELETE FROM facture WHERE created_at >= '2025-01-17 20:30:00';
 
--- 6. Supprimer les get_date créés pendant les tests
-DELETE FROM get_date WHERE created_at >= '2025-01-17 20:30:00';
+  -- 6. Supprimer les budgets
+  DELETE FROM budget WHERE created_at >= '2025-01-17 20:30:00';
 
--- 7. Supprimer les choix de banque créés pendant les tests
-DELETE FROM choix_banque WHERE created_at >= '2025-01-17 20:30:00';
+  -- 7. Supprimer total_budget (IMPORTANT : référence chantier)
+  DELETE FROM total_budget WHERE created_at >= '2025-01-17 20:30:00';
 
--- 8. Supprimer les chantiers créés pendant les tests
-DELETE FROM chantier WHERE created_at >= '2025-01-17 20:30:00';
+  -- 8. Supprimer les équipes
+  DELETE FROM equipe WHERE created_at >= '2025-01-17 20:30:00';
 
--- 9. Supprimer les clients créés pendant les tests
-DELETE FROM client WHERE created_at >= '2025-01-17 20:30:00';
+  -- 9. Supprimer les get_date
+  DELETE FROM get_date WHERE created_at >= '2025-01-17 20:30:00';
 
--- 10. Supprimer les utilisateurs créés pendant les tests (conserver les 3 existants)
-DELETE FROM users WHERE created_at >= '2025-01-17 20:30:00';
+  -- 10. Supprimer les choix de banque
+  DELETE FROM choix_banque WHERE created_at >= '2025-01-17 20:30:00';
+
+  -- 11. Supprimer les chantiers
+  DELETE FROM chantier WHERE created_at >= '2025-01-17 20:30:00';
+
+  -- 12. Supprimer les clients
+  DELETE FROM client WHERE created_at >= '2025-01-17 20:30:00';
+
+
 
 -- 11. NE PAS toucher aux configurations (type_mission, sous_type_mission, societe, liste_personnel, taux, banques)
 -- Ces données existaient déjà et doivent être conservées
